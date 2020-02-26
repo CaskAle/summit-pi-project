@@ -1,19 +1,41 @@
-# Summit-pi project notes
-## Useful programs
-- sudo
-- nano
-- ls
-- cd
+# Summit-pi project
+https://github.com/CaskAle/summit-pi-project
+
+## Useful Commands
+The vast majority of your work on the Raspberry Pi will be done via a command line.  While this is far from complete, here are some useful commands that will help you to navigate the system.
+- **sudo** - A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.  See: `man sudo` for more detail.
+- **nano** - A text editor that uses a command line interface.  Ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name: `nano /dir1/dir2/filename`.  **Note:** Most system configuration files on the pi will also require the `sudo` command.  When done editing the file, simply enter `ctrl-x` and answer yes or no when asked if you would like to save the file.  See: `man nano` for more detail. 
+- **ls** - 
+- **cd** - 
 
 
 ## Working _"Headless"_
 One of the challenges faced with the Raspberry pi is the need to connect to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.
 
 ---
-### /etc/wpa_supplicant/wpa_supplicant
-The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...
+### **Set a unique hostname**
+Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but...
+- `sudo hostnamectl --set-hostname <hostname>`
+- `sudo raspi-config`
+- `sudo nano /etc/hostname`
 
-There is a sample file that can be used at 
+---
+### **ssh**
+
+In order to connect to the pi remotely, you will need to use the ssh protocol.  If you have set a unique hostname, you should be able to connect to your pi with the command: `ssh pi@hostname.local`.  Where _hostname_ is the unique hostname of your device.  pi is the default username on the pi.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.
+- certificate
+
+
+---
+### **ip address**
+
+---
+### **Connect to a mobile hostspot**
+Using your mobile phone as a hotspot is a great way to get your pi onto a network so that you can connect to it.
+- **Configure a hotspot on your mobile**  
+The location in the setup menu for will vary by device but generally it will be in the **__Network__** section of the setup menus.  Here, you will give the hotspot a name and a password.
+- **Edit `/etc/wpa_supplicant/wpa_supplicant` on your pi**  
+The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...  There is a sample file that can be used at https://github.com/CaskAle/summit-pi-project.
 ```
 # /etc/wpa_supplicant/wpa_supplicant.conf
 
@@ -39,30 +61,6 @@ network={
 	psk="<Another Wifi password>"
 }
 ```
----
-### **hostname**
-Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but...
-- `sudo hostnamectl --set-hostname <hostname>`
-- `sudo raspi-config`
-- `sudo nano /etc/hostname`
-
----
-### **ssh**
-
-In order to connect to the pi remotely, you will need to use the ssh protocol.  If you have set a unique hostname, you should be able to connect to your pi with the command: `ssh pi@hostname.local`.  Where _hostname_ is the unique hostname of your device.  pi is the default username on the pi.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.
-- certificate
-
-
----
-### **ip address**
-
----
-### **mobile hostspot**
-Using your mobile phone as a hotspot is a great way to get the Pi and your laptop connected.
-- configure hotspot on phone
-- edit wpa_supplicant
-- can contain multiple, put hotspot first in order of preference
-
 
 ---
 ## TJBot Automated Setup
