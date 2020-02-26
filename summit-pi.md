@@ -10,6 +10,36 @@
 One of the challenges faced with the Raspberry pi is the need to connect to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.
 
 ---
+### /etc/wpa_supplicant/wpa_supplicant
+The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...
+
+There is a sample file that can be used at 
+```
+# /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Multiple networks can be added to this file and they will be tried, in order.
+# Replace the <text> (leave the quotes in place) with the SSID and password of your
+# WiFi networks.  List your mobile hotspot first and it will be connected to if it is
+# turned on.  Otherwise, it will just skip to the next entry, and so on.
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+	ssid="<Mobile hotpot name>"
+	psk="<Mobile hotpot password>"
+
+network={
+	ssid="<Home WiFi name>"
+	psk="<Home WiFi password>"
+
+network={
+	ssid="<Another WiFi name>"
+	psk="<Another Wifi password>"
+}
+```
+---
 ### **hostname**
 Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but...
 - `sudo hostnamectl --set-hostname <hostname>`
