@@ -1,12 +1,19 @@
 # Summit-pi project
 https://github.com/CaskAle/summit-pi-project
 
+## Set up the Raspberry Pi
+Using NOOBS: https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up
+
+Direct OS Image Install: (useful for 100% headless install.  No keyboard/mouse/display) https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+
 ## Useful Commands
-The vast majority of your work on the Raspberry Pi will be done via a command line.  While this is far from complete, here are some useful commands that will help you to navigate the system.
+The vast majority of your work on the Raspberry Pi will be done via a command line.  While this list is far from complete, here are some useful commands that will help you to navigate the system.
 - **sudo** - A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.  See: `man sudo` for more detail.
-- **nano** - A text editor that uses a command line interface.  Ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name: `nano /dir1/dir2/filename`.  **Note:** Most system configuration files on the pi will also require the `sudo` command.  When done editing the file, simply enter `ctrl-x` and answer yes or no when asked if you would like to save the file.  See: `man nano` for more detail. 
-- **ls** - 
-- **cd** - 
+- **nano** - A text editor that uses a command line interface.  It is ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name:  
+`nano /dir1/dir2/filename`.  **Note:** Most system configuration files on the pi will also require the `sudo` command.  When done editing the file, simply enter `ctrl-x` and answer yes or no when asked if you would like to save the file.  See: `man nano` for more detail. 
+- **ls** - A command to list files in a directory.  `ls` by itself will list the contents of the current directory. `ls dir1/dir2` will list the contents of the /dir1/dir2 directory.  There are several flags that can be used to modify the output of the ls command but dir2 very common ones are -a and -l.  the -a flag `ls -a /dir` will include hidded files.  Hidden files in linux begin with a dot and are sometimes called dotfiles.  The -l flag `ls -l /dir` produces a long listing that gives greated detail about the files.  The flags can also be combined `ls -al`.
+- **cd** - A command to change the working directory.  Issue the command `cd /dir` will change to the /dir directory.  To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter:  
+`cd ~/tjbot`.  One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
 
 
 ## Working _"Headless"_
