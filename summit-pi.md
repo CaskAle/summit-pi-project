@@ -16,25 +16,22 @@ The vast majority of your work on the Raspberry Pi will be done via a command li
 `cd ~/tjbot`.  One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
 
 
-## Working _"Headless"_
+## Working "Headless"
 One of the challenges faced with the Raspberry pi is the need to connect to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.
 
 ---
 ### **Set a unique hostname**
-Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but...
-- `sudo hostnamectl --set-hostname <hostname>`
-- `sudo raspi-config`
-- `sudo nano /etc/hostname`
+Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but the first option is probably the easiest.
+- `sudo hostnamectl set-hostname <hostname>`
+- `sudo raspi-config` This tool lets you perform several other configuration changes at the same time, such as enabling ssh.
+- `sudo nano /etc/hostname` Editing this file will allow you to diectly enter a new hostname into the file it is stored in.  You should reboot after editing in this way.  `sudo reboot`
 
 ---
 ### **ssh**
 
-In order to connect to the pi remotely, you will need to use the ssh protocol.  If you have set a unique hostname, you should be able to connect to your pi with the command: `ssh pi@hostname.local`.  Where _hostname_ is the unique hostname of your device.  pi is the default username on the pi.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.
-- certificate
-
-
----
-### **ip address**
+In order to connect to the pi remotely, you will use a tool called ssh (**S**ecure _**SH**_ell).  If you have set a unique hostname, you should be able to connect to your pi with the command:  
+`ssh pi@<hostname>.local`  Where `<hostname>` is the unique hostname of your devic**e.  Alternatively, if you know the ip address of your Raspberry Pi, you can connect with:  
+`ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the Raspberry Pi.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.
 
 ---
 ### **Connect to a mobile hostspot**
