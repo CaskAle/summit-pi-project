@@ -4,13 +4,23 @@
 
 ## Set up the Raspberry Pi
 
-Using NOOBS: <https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up>
+Your package should include a microSD card that is already loaded with software called NOOBS (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you have access to a USB Keyboard, USB Mous, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  Because you already have NOOBS, you should ignore the step that refers to setting up your SD card.  Once you are up and running refer to the notes in this document to enable ssh so you can connect to the device from your laptop.
 
-Direct OS Image Install (useful for 100% headless install.  No keyboard/mouse/display): <https://www.raspberrypi.org/documentation/installation/installing-images/README.md>
+### But I dont have a keyboard, mouse, and display :frowning_face:
 
-## Useful Commands
+However, if you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer useful.  Instead, you need to write a new image of the Raspbian OS directly to the microSD card.  Once the OS had been written, you will need to make a few changes to the microSD before putting it into the device and booting.
 
-The vast majority of your work on the Raspberry Pi will be done via a command line.  While this list is far from complete, here are some useful commands that will help you to navigate the system.
+1. Start by using the same standard setup instructions as listed above but **DO NOT skip the step that refers to setting up your SD card, DO NOT eject the SD card as indicated on the last step of the SD card setup, and DO NOT proceed to the next step "Connect your Pi" until completing the next steps**.
+
+2. edit hostname on the new disk using laptop.
+3. for wifi, edit wpa_supplicant on the new disk using laptop.  See the instructions below for the proper set up of this file.
+4. enable ssh on the new disk using laptop.  use the `touch` command to create a file called ssh in the `/boot` directory of the pi disk.
+5. put the new disk into the pi and boot it
+6. Now you can continue with the standard Raspberry Pi setup where you left off [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+
+## Useful Linux Commands
+
+The vast majority of your work on the device will be done via a command line.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
 
 - **sudo** - A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.  See: `man sudo` for more detail.
 
@@ -23,11 +33,11 @@ The vast majority of your work on the Raspberry Pi will be done via a command li
 
 ## Working "Headless"
 
-One of the challenges faced with the Raspberry pi is the need to connect to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.
+One of the challenges faced with the Raspberry pi is connecting to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.  The primary way to work with a headless device is to use a tool called ssh to connect remotely and get a terminal.
 
 ### Set a unique hostname
 
-Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-XXXXXX).  There are several ways to acomplish this but the first option is probably the easiest.
+Setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-xxxxxx).  There are several ways to acomplish this but the first option is probably the easiest.
 
 - `sudo hostnamectl set-hostname <hostname>`
 
@@ -37,7 +47,7 @@ Setting a unique hostname will be extremely helpful in allowing you to connect t
 
 ### ssh
 
-In order to connect to the pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your Raspberry Pi, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your Raspberry Pi, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the Raspberry Pi.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the pi, you can do so at any time by using the `passwd` command.
+In order to connect to the pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the pi, you can do so at any time by using the `passwd` command.
 
 ### Use a mobile phone hostspot
 
@@ -79,7 +89,7 @@ network={
 
 ## TJBot Setup Notes
 
-1. Boot the Raspberry Pi and make sure it is connected to the network. There is an icon in the menu bar at the top of the screen for connecting to a wifi network.
+1. Boot the device and make sure it is connected to the network. There is an icon in the menu bar at the top of the screen for connecting to a wifi network.
 
 2. Open the Terminal (black square icon with the ">\_" at the top of the screen).
 
@@ -130,7 +140,7 @@ Before running any recipes, you will need to obtain credentials for the Watson s
 
 ### Pi 4 LED Bug
 
-In the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  At that point, execute the following six commands.  This will patch the LED Pi 4 bug and allow the LED to work properly.
+In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  At that point, execute the following six commands.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 - Be sure that you are in the appropriate directory for the specific recipes or tests:  
 `cd ~/Desktop/tjbot/bootstrap/tests`  
@@ -151,6 +161,35 @@ In the recipe instructions you will come to a spot where you are instructed to r
 Now, you may proceed with the recipe as normal.
 > **Note: you will need to repeat these steps for each of the TJBot recipes.**
 
-## Speaker Volume
+### Conversation Recipe Issues
 
-If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `Esc` when you are done and it will save and exit.  Now you should be able to hear.
+- The ~~conversation workspace ID~~ that you are asked to make note of is now called a _Skill ID_.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
+
+- Due to the issue described in the **Speaker Not Working** section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
+
+```javascript
+// these are the hardware capabilities that TJ needs for this recipe
+var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
+if (config.hasCamera == false) {
+    hardware = ['microphone', 'speaker', 'led', 'servo'];
+}
+```
+
+You need to remove the two references to the LED that look like this: `'led',`.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
+
+#### Speaker Not Working
+
+Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device. `sudo reboot`.  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the LED is initialized.
+> Note: This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
+
+#### Speaker Volume
+
+If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear.
+
+## What Next
+
+learn linux
+node-red
+python
+ai
+data science
