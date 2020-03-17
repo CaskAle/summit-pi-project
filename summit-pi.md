@@ -4,19 +4,19 @@
 
 ## Set up the Raspberry Pi
 
-Your package should include a microSD card that is already loaded with software called NOOBS (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you have access to a USB Keyboard, USB Mous, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  Because you already have NOOBS, you should ignore the step that refers to setting up your SD card.  Once you are up and running refer to the notes in this document to enable ssh so you can connect to the device from your laptop.
+Your kit should include a microSD card that is already loaded with software called NOOBS (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  Because you already have NOOBS, you should ignore the step that refers to setting up your SD card.  Once you are up and running refer to [SSH (Secure Shell)](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md#3-enable-ssh-on-a-headless-raspberry-pi-add-file-to-sd-card-on-another-machine) and the notes in this document on [working headless](#headless) to enable ssh so you can connect to the device remotely from your laptop.
 
 ### But I dont have a keyboard, mouse, and display :frowning_face:
 
-However, if you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer useful.  Instead, you need to write a new image of the Raspbian OS directly to the microSD card.  Once the OS had been written, you will need to make a few changes to the microSD before putting it into the device and booting.
+If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer useful.  Instead, you need to write a new image of the Raspbian OS directly to the microSD card.  Once the OS has been written, you will need to make a few changes to the microSD before putting it into the device and booting.
 
-1. Start by using the same standard setup instructions as listed above but **DO NOT skip the step that refers to setting up your SD card, DO NOT eject the SD card as indicated on the last step of the SD card setup, and DO NOT proceed to the next step "Connect your Pi" until completing the next steps**.
+1. Start by using the same [standard setup](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but **DO NOT** skip the step that refers to setting up your SD card, **DO NOT** eject the SD card as indicated on the last step of the SD card setup, and **DO NOT** proceed to the next step, "Connect your Pi" until completing the following steps.
 
-2. edit hostname on the new disk using laptop.
-3. for wifi, edit wpa_supplicant on the new disk using laptop.  See the instructions below for the proper set up of this file.
-4. enable ssh on the new disk using laptop.  use the `touch` command to create a file called ssh in the `/boot` directory of the pi disk.
-5. put the new disk into the pi and boot it
-6. Now you can continue with the standard Raspberry Pi setup where you left off [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes in this document on [working headless](#headless) to enable a WiFi connection and ssh.
+
+3. Edit  hostname on the new disk using laptop.
+
+4. Now you can continue with the standard Raspberry Pi setup where you left off: [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
 
 ## Useful Linux Commands
 
@@ -31,7 +31,7 @@ The vast majority of your work on the device will be done via a command line.  W
 
 - **cd** - A command to change the working directory.  Issue the command `cd /dir` will change to the /dir directory.  To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.  One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
 
-## Working "Headless"
+## [Working "Headless"](#headless)
 
 One of the challenges faced with the Raspberry pi is connecting to it in what is known as a "headless" environment.  This means a device that has no keyboard or display to work from.  This issue is made even more difficult due to the, well warranted, network security restrictions of the IBM internal network.  The primary way to work with a headless device is to use a tool called ssh to connect remotely and get a terminal.
 
