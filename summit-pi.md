@@ -15,7 +15,7 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes below on editing files to enable a WiFi connection and ssh at boot time.
    - Editing files on a microSD card from a Mac and be done by openning the "terminal" application.  From there, you should find the boot directory at `/Volumes/boot`.
    - Use the `touch` command to create an empty file called ssh in the boot directory. `touch /Volumes/boot/ssh`.
-   - Use the [nano](#nano) editor to create the wpa_cupplicant.conf file.  Guidance on this file can be found in the section: [Editing wpa_supplicant.conf](#editing-wpa_supplicant.conf).
+   - Use the [nano](#nano) editor to create the wpa_supplicant.conf file.  Guidance on this file can be found in the section: [Configuring WiFi](#configuring-wifi).
    - Be sure to eject the microSD properly.  **DO NOT** just remove it.
 
 3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
@@ -53,7 +53,7 @@ The configuration of your phone's hospot, will vary by manufacturer but generall
 
 - Connect your laptop to the hotspot just like you would any other WiFi network.
 
-## Editing wpa_supplicant.conf
+## Configuring WiFi
 
 The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...  There is a sample file that can be modified and used at: <https://github.com/CaskAle/summit-pi-project.>
 
