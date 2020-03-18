@@ -53,7 +53,7 @@ The configuration of your phone's hospot, will vary by manufacturer but generall
 
 - Connect your laptop to the hotspot just like you would any other WiFi network.
 
-- [**Edit /etc/wpa_supplicant/wpa_supplicant**](#wpa_supplicant)
+## [Edit /etc/wpa_supplicant/wpa_supplicant](#wpa_supplicant)
 The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...  There is a sample file that can be modified and used at: <https://github.com/CaskAle/summit-pi-project.>
 
 ```bash
