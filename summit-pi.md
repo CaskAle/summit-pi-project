@@ -20,22 +20,24 @@ Your kit should include an SD card that is already loaded with software called [
 
 - Once you are up and running, take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname) and enable [ssh](#ssh) so that you can connect to the device remotely from your laptop.
 
-- If you will always have access to the keyboard, mouse, and display, it will be useful to through the [Using your Raspberry Pi](#https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
+- If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
 ## But I dont have a keyboard, mouse, and display :frowning_face: (the harder way)
 
-If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer useful.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few changes to the SD card before putting it into the device and booting.
+If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few changes to the SD card before putting it into the device and booting.
 
 1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, in this case, **DO NOT** skip the step that refers to setting up your SD card, **DO NOT** eject the SD card as indicated on the last step of the SD card setup, and **DO NOT** proceed to the next step, "Connect your Pi" until completing the following steps.
 
 2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes below on editing files to enable a WiFi connection and ssh at boot time.
    - Editing files on the SD card from a Mac can be done by openning the "terminal" application.  From there, you should find the SD card's boot directory at `/Volumes/boot`.
-   - Use the "touch" command to create an empty file called ssh in the boot directory: `touch /Volumes/boot/ssh`.
-   - For WiFi, use the [nano](#nano) editor to create the wpa_supplicant.conf file in the /Volumes/boot directory.  Guidance on this file can be found in the [Configuring WiFi](#configuring-wifi) section.
-   - Be sure to eject the SD card properly.  **DO NOT** just remove it.
+   - Use the "touch" command to create an empty file called ssh in the boot directory:  
+   `touch /Volumes/boot/ssh`.
+   - For WiFi, use the [nano](#nano) editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  Guidance on this file can be found in the [Configuring WiFi](#configuring-wifi) section.
+   - Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.You can do this from either the desktop or from within the Finder.
 
-3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
-   > **Note**: The instructions in the setup guide stop being relevant to a headless install once you get to the point where you power it up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via ssh.
+3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+
+   - The instructions in the setup guide stop being relevant to a headless install once you get to the point where you power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
 
 4. If your device is the only Raspberry Pi on the network (for instance, if you  [use your mobile phone as a hotspot](#mobile-phone-hotspot), you should now be able to connect to it from your laptop via ssh by openning a terminal on your laptop and entering: `ssh pi@raspberrypi`
 
@@ -57,16 +59,26 @@ In order to connect to the pi remotely, you will use a tool called ssh (**S**ecu
 
 ### Mobile Phone Hotspot
 
-Using your mobile phone as a hotspot is a great way to get your pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, they
+Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
 
 - **Configure a hotspot on your mobile**  
 The configuration of your phone's hospot, will vary by manufacturer but generally it will be in the **__Network__** section of the phone's setup menus.  Here, you will give the hotspot a name and a password.  Then, turn it on.
 
 - Connect your laptop to the hotspot just like you would any other WiFi network.
 
+- Follow the [Configuring WiFi](#configuring-wifi) instructions below to create an intial configuration in a headless environment or to add a network to an existing configuration.
+
 ### Configuring WiFi
 
-The WiFi configuration is stored in this file.  Multiple networks can be added to this file and they will be tried, in order.  Replace the `<text>` (leave the quotes in place) with the SSID and password of your WiFi networks.  List your mobile hotspot first and it will connect to it if it is turned on.  Otherwise, it will just skip to the next entry, and so on...  There is a sample file that can be modified and used at: <https://github.com/CaskAle/summit-pi-project.>
+The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
+
+- If you place a wpa_supplicant file into the /boot directory of the Raspberry Pi /boot directory before booting it up the first time, that file will be automatically moved to the /etc/wpa_supplicant directory at first boot.  It will then attempt to connect to the WiFi networks specified in the file, in the order they appear.
+
+- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot)] as the first network in this file.  This way, you always have a fallback method of connecting to the device.
+
+- In the example below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
+
+- There is a sample wpa_supplicant.conf file that can copied and modified at: <https://github.com/CaskAle/summit-pi-project>.
 
 ```bash
 # /etc/wpa_supplicant/wpa_supplicant.conf
@@ -112,6 +124,15 @@ A command to list files in a directory.  `ls` by itself will list the contents o
 
 ### cd
  A command to change the working directory.  Issue the command `cd /dir` will change to the /dir directory.  To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.  One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
+
+### ip
+`ip addr`
+`ip route`
+
+
+### reboot / shutdown
+`sudo reboot`
+`sudo shutdown now`
 
 ---
 
