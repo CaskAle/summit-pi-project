@@ -8,7 +8,7 @@ This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
 - If your site has Ethernet, it may be an option.  However, it will take some special preparations to ensure that each Raspberry Pi has a unique name.  Without a unique name, it will be very difficult to connect remotely to the device.  This is acomplished by [setting a unique hostname](#set-a-unique-hostname).
 
-- One very helpful option is to leverage the WiFi hotspot capability of your mobile phone.  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
+- One very helpful and recommended option is to leverage the WiFi hotspot capability of your mobile phone.  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
 
 ## Set up the Raspberry Pi (the easy way)
 
@@ -18,7 +18,7 @@ Your kit should include an SD card that is already loaded with software called [
 
 - Because you already have NOOBS, you can ignore the step that refers to setting up your SD card.
 
-- Once you are up and running, take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname) and enable [ssh](#ssh) so that you can connect to the device remotely from your laptop.
+- Once you are up and running, take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
 
 - If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
@@ -29,6 +29,7 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, in this case, **DO NOT** skip the step that refers to setting up your SD card, **DO NOT** eject the SD card as indicated on the last step of the SD card setup, and **DO NOT** proceed to the next step, "Connect your Pi" until completing the following steps.
 
 2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes below on editing files to enable a WiFi connection and ssh at boot time.
+
    - Editing files on the SD card from a Mac can be done by openning the "terminal" application.  From there, you should find the SD card's boot directory at `/Volumes/boot`.
    - Use the "touch" command to create an empty file called ssh in the boot directory:  
    `touch /Volumes/boot/ssh`.
@@ -37,21 +38,29 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
 
-   - The instructions in the setup guide stop being relevant to a headless install once you get to the point where you power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
+   - The instructions in the setup guide stop being relevant to a headless install once you get to the point where you invited to power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
+  
+4. Ensure that your mobile hotspot is turned on before powering up the device.
 
-4. If your device is the only Raspberry Pi on the network (for instance, if you  [use your mobile phone as a hotspot](#mobile-phone-hotspot), you should now be able to connect to it from your laptop via ssh by openning a terminal on your laptop and entering: `ssh pi@raspberrypi`
+5. Plug in your Pi.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect.  Eventually, your phone should indicate the number of devices that are connected to the hotspot and you can use this as one way to verify that the Pi is ready.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.
 
-5. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool including: WiFi, hostname, password, and much more.  Be sure to run the tool as root with: `sudo raspi-config`
+6. If your device is the only Raspberry Pi on the network (for instance, if you  [use your mobile phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
+`ssh pi@raspberrypi`
+
+7. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  
+`sudo raspi-config`
 
 ### Set a unique hostname
 
-The default host name for the device is `raspberrypi`. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely helpful in allowing you to connect to the pi remotely.  Due to the large number of pis that will be connecting to the network, you will want a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to accomlish this is to add your IBM employee number to the end. (ex. tjbot-xxxxxx).  There are several ways to acomplish this but the first option is probably the easiest.
+The default host name for the device is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the Pi remotely.  Due to the large number of Pis that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
 
-- `sudo hostnamectl set-hostname <hostname>`
+There are several ways to set the hostname but the first option is probably the easiest.
+
+- `sudo hostnamectl set-hostname new-hostname`
 
 - `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
 
-- `sudo nano /etc/hostname`. Editing this file will allow you to diectly enter a new hostname into the file it is stored in.  You should reboot after editing in this way.  `sudo reboot`.
+- `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
 
 ### ssh
 
@@ -76,9 +85,9 @@ The WiFi configuration is stored in a file called wpa_supplicant located in the 
 
 - It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot)] as the first network in this file.  This way, you always have a fallback method of connecting to the device.
 
-- In the example below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
+- In the sample below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
 
-- There is a sample wpa_supplicant.conf file that can copied and modified at: <https://github.com/CaskAle/summit-pi-project>.
+- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project>) file that can copied, modified, and used.
 
 ```bash
 # /etc/wpa_supplicant/wpa_supplicant.conf
