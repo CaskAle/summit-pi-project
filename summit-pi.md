@@ -12,7 +12,7 @@ This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
 ## Set up the Raspberry Pi (the easy way)
 
-Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead [the harder way](#but-i-dont-have-that-stuff-:frowning_face:-(the-harder-way)).
+Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to [the harder way](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
 
 - If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  
 
@@ -22,7 +22,7 @@ Your kit should include an SD card that is already loaded with software called [
 
 - If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
-## But I dont have that stuff :frowning_face: (the harder way)
+## But I don't have that stuff :frowning_face: (the harder way)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few changes to the SD card before putting it into the device and booting.
 
@@ -41,7 +41,7 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
 
-   - The instructions in the setup guide stop being relevant to a headless install once you get to the point where you invited to power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
+   > Note: The instructions in the setup guide stop being relevant to a headless install once you get to the point where you invited to power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
   
 4. Ensure that your mobile hotspot is turned on before powering up the device.
 
@@ -67,7 +67,7 @@ There are several ways to set the hostname but the first option is probably the 
 
 ### ssh
 
-In order to connect to the pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the pi, you can do so at any time by using the `passwd` command.
+In order to connect to the Pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the pi, you can do so at any time by using the `passwd` command.
 
 ### Mobile Phone Hotspot
 
@@ -86,7 +86,7 @@ The WiFi configuration is stored in a file called wpa_supplicant located in the 
 
 - If you place a wpa_supplicant file into the /boot directory of the Raspberry Pi /boot directory before booting it up the first time, that file will be automatically moved to the /etc/wpa_supplicant directory at first boot.  It will then attempt to connect to the WiFi networks specified in the file, in the order they appear.
 
-- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot)] as the first network in this file.  This way, you always have a fallback method of connecting to the device.
+- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot) as the first network in this file.  This way, you always have a fallback method of connecting to the device.
 
 - In the sample below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
 
@@ -135,7 +135,7 @@ A program that allows users to run programs with the security privileges of anot
 ### nano
 
  A text editor that uses a command line interface.  It is ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name:  
-`nano /dir1/dir2/filename`.  
+`nano /dir1/dir2/filename`  
 > **Note:** Editing system files on the Pi will also require the [sudo](#sudo) command.
 
 When done editing the file, enter `ctrl-x` and than answer yes or no when asked if you would like to save the file.
@@ -154,7 +154,7 @@ A command to list files in a directory.
 
   - `ls -l /dir` produces a long listing that gives greater detail about the files.
 
-  - The flags can also be combined `ls -al`.
+  - Flags can also be combined: `ls -al`.
 
 ### cd
 
@@ -168,16 +168,19 @@ A command to list files in a directory.
 
 ### ip
 
-`ip addr`  
-`ip route`
+A command to display and set various ip network settings.
+- `ip addr` will show your ip address info.
+
+- `ip route` will shop ip routing info.
 
 ### Reboot / Shutdown
 
-`sudo reboot`  
-`sudo shutdown now`
+- `sudo reboot` will reboot the Pi.
+
+- `sudo shutdown now` will shut it down.  Before unplugging your Pi, you should shut it down.  Shutdown takes about 30 seconds to complete.  You can tell it is done when the gree LED on the Pi stops blinking and just stays off.
 
 ### System updates
-
+You should occasionally check for and apply system updates to ensure that bugs and security vulnerabilities are addressed.  This is done by executing the following 2 commands:  
 `sudo apt update`  
 `sudo apt upgrade`
 
@@ -246,7 +249,7 @@ In all three of the recipe instructions you will come to a spot where you are in
 
 - The ~~conversation workspace ID~~ that you are asked to make note of is now called a **_Skill ID_**.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
 
-- Due to the issue described in the **Speaker Not Working** section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
+- Due to the issue described in the [Speaker Not Working](#speaker-not-working) section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
 
 ```javascript
 // these are the hardware capabilities that TJ needs for this recipe
