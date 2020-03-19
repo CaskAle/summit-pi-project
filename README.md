@@ -8,5 +8,5 @@ Topics Include:
 - Useful linux commands
 - Notes regarding changes to the TJBot Recipes due to use of Raspberry Pi 4.
 
-## [Summit Pi Project Notes](https://github.com/CaskAle/summit-pi-project/blob/master/summit-pi.md)
+## Click here -> [Summit Pi Project Notes](https://github.com/CaskAle/summit-pi-project/blob/master/summit-pi.md)
 
