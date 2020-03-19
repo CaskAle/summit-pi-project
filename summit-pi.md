@@ -12,7 +12,7 @@ This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
 ## Set up the Raspberry Pi (the easy way)
 
-Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.
+Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead [the harder way](#but-i-dont-have-that-stuff-:frowning_face:-(the-harder-way)).
 
 - If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  
 
@@ -22,7 +22,7 @@ Your kit should include an SD card that is already loaded with software called [
 
 - If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
-## But I dont have a keyboard, mouse, and display :frowning_face: (the harder way)
+## But I dont have that stuff :frowning_face: (the harder way)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few changes to the SD card before putting it into the device and booting.
 
@@ -31,9 +31,12 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes below on editing files to enable a WiFi connection and ssh at boot time.
 
    - Editing files on the SD card from a Mac can be done by openning the "terminal" application.  From there, you should find the SD card's boot directory at `/Volumes/boot`.
+
    - Use the "touch" command to create an empty file called ssh in the boot directory:  
    `touch /Volumes/boot/ssh`.
+
    - For WiFi, use the [nano](#nano) editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  Guidance on this file can be found in the [Configuring WiFi](#configuring-wifi) section.
+
    - Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.You can do this from either the desktop or from within the Finder.
 
 3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
@@ -87,7 +90,7 @@ The WiFi configuration is stored in a file called wpa_supplicant located in the 
 
 - In the sample below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
 
-- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project>) file that can copied, modified, and used.
+- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project/blob/master/wpa_supplicant.conf>) file that can copied, modified, and used.
 
 ```bash
 # /etc/wpa_supplicant/wpa_supplicant.conf
@@ -121,44 +124,71 @@ network={
 
 The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
 
+### man 
+The linux help system. When dealing with the linux command line, the `man` command may be your best friend.  Most command line tools contain many flags and arguments that can be added to the command to modify the way the command works.  There can be so many of these flags that is becomes impossible to remember them all. Just check out `man ls` the simple command for listing a directory contents for an example of how many flags a command might have.  To use man, just enter the command followed by the command you want help with.  For example: `man systemctl` will bring up the man pages for the systemctl command.  
+> Note: Type the letter q to quit man when you are finished.
+
 ### sudo
-A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.  See: `man sudo` for more detail.
+
+A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.
 
 ### nano
+
  A text editor that uses a command line interface.  It is ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name:  
-`nano /dir1/dir2/filename`.  **Note:** Most system configuration files on the pi will also require the `sudo` command.  When done editing the file, enter `ctrl-x` and answer yes or no when asked if you would like to save the file.  See: `man nano` for more detail.
+`nano /dir1/dir2/filename`.  
+> **Note:** Editing system files on the Pi will also require the [sudo](#sudo) command.
+
+When done editing the file, enter `ctrl-x` and than answer yes or no when asked if you would like to save the file.
 
 ### ls
-A command to list files in a directory.  `ls` by itself will list the contents of the current directory. `ls dir1/dir2` will list the contents of the /dir1/dir2 directory.  There are several flags that can be used to modify the output of the ls command but dir2 very common ones are -a and -l.  the -a flag `ls -a /dir` will include hidded files.  Hidden files in linux begin with a dot and are sometimes called dotfiles.  The -l flag `ls -l /dir` produces a long listing that gives greated detail about the files.  The flags can also be combined `ls -al`.
+
+A command to list files in a directory.
+
+- `ls` by itself will list the contents of the current directory.
+
+- `ls dir1/dir2` will list the contents of the /dir1/dir2 directory.
+
+- There are several flags that can be used to modify the output of the ls command but 2 very common ones are -a and -l.
+  
+  - `ls -a /dir` will include hidded files.  Hidden files in linux begin with a dot and are sometimes called dotfiles.
+
+  - `ls -l /dir` produces a long listing that gives greater detail about the files.
+
+  - The flags can also be combined `ls -al`.
 
 ### cd
- A command to change the working directory.  Issue the command `cd /dir` will change to the /dir directory.  To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.  One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
+
+ A command to change the working directory.  
+
+- `cd /dir` will change to the /dir directory.
+
+- To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.
+
+- One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
 
 ### ip
-`ip addr`
+
+`ip addr`  
 `ip route`
 
 ### Reboot / Shutdown
-`sudo reboot`
+
+`sudo reboot`  
 `sudo shutdown now`
 
 ### System updates
 
-`sudo apt update`
+`sudo apt update`  
 `sudo apt upgrade`
 
 ---
 
 ## TJBot Setup Notes
 
-1. Boot the device and make sure it is connected to the network. There is an icon in the menu bar at the top of the screen for connecting to a wifi network.
-
-2. Open the Terminal (black square icon with the ">\_" at the top of the screen).
-
-3. Run the following command to begin the TJBot installation:  
+1. From a terminal, run the following command to begin the TJBot installation:  
 `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`
 
-4. The install script will ask several questions.  Some guidance on on the correct responses follows:
+2. The install script will ask several questions.  Some guidance on on the correct responses follows:
 
    - **Hostname**:  
     Due to the large number of devices that will be in play, decide on another hostname for your device.  Make sure that it is unique to you.  One way to acomlish this could be to add your IBM employee number to the end. (ex. tjbot-439321)
@@ -180,17 +210,19 @@ A command to list files in a directory.  `ls` by itself will list the contents o
 
 ---
 
-## TJBot recipes Issues
+## TJBot recipe Issues
 
 We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work.
 
 ### Hardware Testing
+There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  THe instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file located in "tjbot/bootstrap".
+> Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
-### Pi 4 LED Bug
+### Raspberry Pi 4 LED Bug
 
 In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  At that point, execute the following six commands.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
-1. Be sure that you are in the appropriate directory for the specific recipes or tests:  
+1. Be sure that you are in the appropriate directory for the specific recipe or test you are working on:  
 `cd ~/Desktop/tjbot/bootstrap/tests`  
 `cd ~/Desktop/tjbot/recipes/conversation`  
 `cd ~/Desktop/tjbot/recipes/sentiment_analysis`  
@@ -206,7 +238,8 @@ In all three of the recipe instructions you will come to a spot where you are in
 
 6. `npm build node_modules/rpi-ws281x-native`
 
-7. Now, you may proceed with the recipe as normal.
+7. Now, you may proceed with the recipe where you left off.
+
 > **Note: you will need to repeat these steps for each of the TJBot recipes.**
 
 ### Conversation Recipe Issues
@@ -236,10 +269,8 @@ If you are having trouble with the volume level of the speaker, you can adjust t
 
 ## What Next
 
-learn linux
-node-red
-python
-ai
-data science
-vs code
-led wiring
+learn linux  
+node-red  
+python  
+ai  
+data science  
