@@ -138,10 +138,14 @@ A command to list files in a directory.  `ls` by itself will list the contents o
 `ip addr`
 `ip route`
 
-
-### reboot / shutdown
+### Reboot / Shutdown
 `sudo reboot`
 `sudo shutdown now`
+
+### System updates
+
+`sudo apt update`
+`sudo apt upgrade`
 
 ---
 
@@ -151,77 +155,63 @@ A command to list files in a directory.  `ls` by itself will list the contents o
 
 2. Open the Terminal (black square icon with the ">\_" at the top of the screen).
 
-3. Run the following command to begin the TJBot installation.  
+3. Run the following command to begin the TJBot installation:  
 `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`
 
-### Hostname
+4. The install script will ask several questions.  Some guidance on on the correct responses follows:
 
-Due to the large number of devices that will be in play, decide on another hostname for your device.  Make sure that it is unique to you.  One way to acomlish this could be to add your IBM employee number to the end. (ex. tjbot-439321)
+   - **Hostname**:  
+    Due to the large number of devices that will be in play, decide on another hostname for your device.  Make sure that it is unique to you.  One way to acomlish this could be to add your IBM employee number to the end. (ex. tjbot-439321)
 
-### Quad 9 Nameservers
+   - **Quad 9 Nameservers**:  
+    The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
-The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice
+   - **Camera**:  
+    The Summit kit does not include a camera.  If you get a camera later, it is very easy to add the camera support at that time wih the `sudo raspi-config` command.
 
-### Camera
+   - **Install Location**:  
+    Many of the tjbot recipe instructions and scripts are written assuming that the default location for  the TJBot code (/home/pi/Desktop/tjbot) is chosen.  While not required, I suggest keeping the clone location to the default of `/home/pi/Desktop/tjbot`.
 
-The Summit kit does not include a camera.  If you get a camera later, it is very easy to add the camera support at that time wih the `sudo raspi-config` command.
+   - **LED / Sound Conflict**:  
+    On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this will be discussed in a later section.
 
-### Install Location
-
-Many of the tjbot recipe instructions and scripts are written assuming that the default location for  the TJBot code (/home/pi/Desktop/tjbot) is chosen.  While not required, I suggest keeping the clone location to the default of `/home/pi/Desktop/tjbot`.
-
-### LED / Sound Conflict
-
-On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this will be discussed in a later section.
-
-### Do not run the Hardware tests when asked
-
-Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Instead look below for the section on **Hardware Testing**.
-
-### Watson Credentials
-
-Before running any recipes, you will need to obtain credentials for the Watson services used by those recipes.  You can obtain these credentials as follows:
-
-1. Sign up for a free IBM Cloud account at <https://cloud.ibm.com> if you do not have one already.
-
-2. Log in to IBM Cloud and create an instance of the Watson services you plan to use. The Watson services are listed on the IBM Cloud dashboard, under "Catalog". The full list of Watson services used by TJBot are: **Assistant, Language Translator, Speech to Text, Text to Speech, Tone Analyzer, and Visual Recognition**
-
-3. For each Watson service, click the "Create" button on the bottom right of the page to create an instance of the service.
-
-4. Click "Service Credentials" in the left-hand sidebar. Next, click "View Credentials" under the Actions menu.
-
-5. Make note of the credentials for each Watson service. You will need to save these in the config.js files for each recipe you wish to run. For more detailed guides on setting up service credentials, please see the README file of each recipe, or search instructables.com for "tjbot".
+   - **Do not run the Hardware tests when asked**:  
+    Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Instead look below for the section on [Hardware Testing](#hardware-testing).
 
 ---
 
-## Running the TJBot recipes
+## TJBot recipes Issues
+
+We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work.
+
+### Hardware Testing
 
 ### Pi 4 LED Bug
 
 In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  At that point, execute the following six commands.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
-- Be sure that you are in the appropriate directory for the specific recipes or tests:  
+1. Be sure that you are in the appropriate directory for the specific recipes or tests:  
 `cd ~/Desktop/tjbot/bootstrap/tests`  
 `cd ~/Desktop/tjbot/recipes/conversation`  
 `cd ~/Desktop/tjbot/recipes/sentiment_analysis`  
 `cd ~/Desktop/tjbot/recipes/speech_to_text`
 
-- `npm install`
+2. `npm install`
 
-- `npm install rpi-ws281x-native@latest`
+3. `npm install rpi-ws281x-native@latest`
 
-- `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
+4. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
 
-- `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
+5. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
 
-- `npm build node_modules/rpi-ws281x-native`
+6. `npm build node_modules/rpi-ws281x-native`
 
-Now, you may proceed with the recipe as normal.
+7. Now, you may proceed with the recipe as normal.
 > **Note: you will need to repeat these steps for each of the TJBot recipes.**
 
 ### Conversation Recipe Issues
 
-- The ~~conversation workspace ID~~ that you are asked to make note of is now called a _Skill ID_.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
+- The ~~conversation workspace ID~~ that you are asked to make note of is now called a **_Skill ID_**.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
 
 - Due to the issue described in the **Speaker Not Working** section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
 
@@ -233,7 +223,7 @@ if (config.hasCamera == false) {
 }
 ```
 
-You need to remove the two references to the LED that look like this: `'led',`.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
+You need to remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
 
 #### Speaker Not Working
 
@@ -251,3 +241,5 @@ node-red
 python
 ai
 data science
+vs code
+led wiring
