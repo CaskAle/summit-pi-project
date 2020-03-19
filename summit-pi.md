@@ -171,7 +171,7 @@ A command to list files in a directory.
 A command to display and set various ip network settings.
 - `ip addr` will show your ip address info.
 
-- `ip route` will shop ip routing info.
+- `ip route` will show ip routing info.
 
 ### Reboot / Shutdown
 
