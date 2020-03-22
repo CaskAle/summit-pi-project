@@ -32,9 +32,9 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, stop once you have completed the **Set up your SD card** step.  At that point, complete the following steps.
 
-2. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) then return here to complete the steps to enable a WiFi connection and ssh at boot time.
+2. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md).  Don't actually perform any of the step in the article.  Instead, return here and complete the steps below to enable a WiFi connection and ssh on your Pi.
 
-3. Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been installed onto the card.
+3. Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been created on the card.
 
 4. Editing files on the SD card from a Mac can be done by opening the "terminal" application on the Mac.  From there, you should find the SD card's boot directory at `/Volumes/boot`.  Use `cd /Volumes/boot` to get there.  If there does not seem to be a boot directory, repeat step 3 above.
 
@@ -57,141 +57,10 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 11. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
 `ssh pi@raspberrypi`
 
-12. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  
-`sudo raspi-config`
+12. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  `sudo raspi-config`.  After you make these changes, be sure to select the option to reboot the Pi when you exit the raspi-config program.
 
-## Configuration Recommendations
-
-### Set a unique hostname
-
-The default host name for the device is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the Pi remotely.  Due to the large number of Pis that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
-
-There are several ways to set the hostname but the first option is probably the easiest.
-
-- `sudo hostnamectl set-hostname new-hostname`
-
-- `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
-
-- `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
-
-### Mobile Phone Hotspot
-
-Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
-
-- **Configure a hotspot on your mobile**  
-The configuration of your phone's hospot, will vary by manufacturer but generally it will be in the **__Network__** section of the phone's setup menus.  Here, you will give the hotspot a name and a password.  Then, turn it on.
-
-- Connect your laptop to the hotspot just like you would any other WiFi network.
-
-- Follow the [Configuring WiFi](#configuring-wifi) instructions below to create an intial configuration in a headless environment or to add a network to an existing configuration.
-
-### Configuring WiFi
-
-The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
-
-- If you place a wpa_supplicant file into the /boot directory of the Raspberry Pi /boot directory before booting it up the first time, that file will be automatically moved to the /etc/wpa_supplicant directory at first boot.  It will then attempt to connect to the WiFi networks specified in the file, in the order they appear.
-
-- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot) as the first network in this file.  This way, you always have a fallback method of connecting to the device.
-
-- In the sample below, replace the the text and brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
-
-- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project/blob/master/wpa_supplicant.conf>) file that can copied, modified, and used.
-
-```bash
-# /etc/wpa_supplicant/wpa_supplicant.conf
-
-# Multiple networks can be added to this file and they will be tried, in order.
-# Replace the <text> (leave the quotes in place) with the SSID and password of your
-# WiFi networks.  List your mobile hotspot first and it will be connected to if it is
-# turned on.  Otherwise, it will just skip to the next entry, and so on.
-
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=US
-
-network={
-  ssid="<Mobile hotpot name>"
-  psk="<Mobile hotpot password>"
-
-network={
-  ssid="<Home WiFi name>"
-  psk="<Home WiFi password>"
-
-network={
-  ssid="<Another WiFi name>"
-  psk="<Another Wifi password>"
-}
-```
-
----
-
-## Useful Linux Commands
-
-The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
-
-### man 
-The linux help system. When dealing with the linux command line, the `man` command may be your best friend.  Most command line tools contain many flags and arguments that can be added to the command to modify the way the command works.  There can be so many of these flags that is becomes impossible to remember them all. Just check out `man ls` the simple command for listing a directory contents for an example of how many flags a command might have.  To use man, just enter the command followed by the command you want help with.  For example: `man systemctl` will bring up the man pages for the systemctl command.  
-> Note: Type the letter q to quit man when you are finished.
-
-### ssh
-
-In order to connect to the Pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password for the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the device, you can do so at any time by using the `passwd` command.
-
-### sudo
-
-A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.
-
-### nano
-
- A text editor that uses a command line interface.  It is ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name:  
-`nano some-filename`  
-> **Note:** Editing system files on the Pi will also require the [sudo](#sudo) command.
-
-When done editing the file, enter `ctrl-x` and than answer yes or no when asked if you would like to save the file.
-
-### ls
-
-A command to list files in a directory.
-
-- `ls` by itself will list the contents of the current directory.
-
-- `ls dir1/dir2` will list the contents of the /dir1/dir2 directory.
-
-- There are several flags that can be used to modify the output of the ls command but 2 very common ones are -a and -l.
-  
-  - `ls -a /dir` will include hidded files.  Hidden files in linux begin with a dot and are sometimes called dotfiles.
-
-  - `ls -l /dir` produces a long listing that gives greater detail about the files.
-
-  - Flags can also be combined: `ls -al`.
-
-### cd
-
- A command to change the working directory.  
-
-- `cd /dir` will change to the /dir directory.
-
-- To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.
-
-- One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
-
-### ip
-
-A command to display and set various ip network settings.
-- `ip addr` will show your ip address info.
-
-- `ip route` will show ip routing info.
-
-### Reboot / Shutdown
-
-- `sudo reboot` will reboot the Pi.
-
-- `sudo shutdown now` will shut it down.  Before unplugging your Pi, you should shut it down.  Shutdown takes about 30 seconds to complete.  You can tell it is done when the gree LED on the Pi stops blinking and just stays off.
-
-### System updates
-You should occasionally check for and apply system updates to ensure that bugs and security vulnerabilities are addressed.  This is done by executing the following 2 commands:  
-`sudo apt update`  
-`sudo apt upgrade`
+13. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  Proceed to the [TJBot Setup Notes](#tjbot-setup-notes).  
+< Note: you  now connect to your Pi with its new hostname, `ssh pi@some-new-hostname`
 
 ---
 
@@ -278,6 +147,141 @@ Due to a known issue with the Raspberry Pi involving a conflict between the LED 
 #### Speaker Volume
 
 If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear.
+
+---
+
+## Configuration Recommendations
+
+### Set a unique hostname
+
+The default host name for the device is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the Pi remotely.  Due to the large number of Pis that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
+
+There are several ways to set the hostname but the first option is probably the easiest.
+
+- `sudo hostnamectl set-hostname new-hostname`
+
+- `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
+
+- `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
+
+### Mobile Phone Hotspot
+
+Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
+
+- **Configure a hotspot on your mobile**  
+The configuration of your phone's hospot, will vary by manufacturer but generally it will be in the **__Network__** section of the phone's setup menus.  Here, you will give the hotspot a name and a password.  Then, turn it on.
+
+- Connect your laptop to the hotspot just like you would any other WiFi network.
+
+- Follow the [Configuring WiFi](#configuring-wifi) instructions below to create an intial configuration in a headless environment or to add a network to an existing configuration.
+
+### Configuring WiFi
+
+The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
+
+- If you place a wpa_supplicant file into the /boot directory of the Raspberry Pi /boot directory before booting it up the first time, that file will be automatically moved to the /etc/wpa_supplicant directory at first boot.  It will then attempt to connect to the WiFi networks specified in the file, in the order they appear.
+
+- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot) as the first network in this file.  This way, you always have a fallback method of connecting to the device.
+
+- In the sample below, replace the bracketted text and the brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
+
+- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project/blob/master/wpa_supplicant.conf>) file that can copied, modified, and used.
+
+```bash
+# /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Multiple networks can be added to this file and they will be tried, in order.
+# Replace the <text> (leave the quotes in place) with the SSID and password of your
+# WiFi networks.  List your mobile hotspot first and it will be connected to if it is
+# turned on.  Otherwise, it will just skip to the next entry, and so on.
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+  ssid="<Mobile hotpot name>"
+  psk="<Mobile hotpot password>"
+
+network={
+  ssid="<Home WiFi name>"
+  psk="<Home WiFi password>"
+
+network={
+  ssid="<Another WiFi name>"
+  psk="<Another Wifi password>"
+}
+```
+
+---
+
+## Useful Linux Commands
+
+The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
+
+### man 
+The linux help system. When dealing with the linux command line, the `man` command may be your best friend.  Most command line tools contain many flags and arguments that can be added to the command to modify the way the command works.  There can be so many of these flags that is becomes impossible to remember them all. Just check out `man ls` the simple command for listing a directory contents for an example of how many flags a command might have.  To use man, just enter the command followed by the command you want help with.  For example: `man systemctl` will bring up the man pages for the systemctl command.  
+> Note: Type the letter q to quit man when you are finished.
+
+### ssh
+
+In order to connect to the Pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password for the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the device, you can do so at any time by using the `passwd` command.
+
+### sudo
+
+A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.
+
+### nano
+
+ A text editor that uses a command line interface.  It is ideal for editing configuration files from a terminal.  To edit a file with nano simply use the nano command followed by a file name:  
+`nano some-filename`  
+> **Note:** When editing system files on the Raspberry Pi will also require the [sudo](#sudo) command.
+
+When done editing the file, enter `ctrl-x` and than answer yes or no when asked if you would like to save the file.
+
+### ls
+
+A command to list files in a directory.
+
+- `ls` by itself will list the contents of the current directory.
+
+- `ls dir1/dir2` will list the contents of the /dir1/dir2 directory.
+
+- There are several flags that can be used to modify the output of the ls command but 2 very common ones are -a and -l.
+  
+  - `ls -a /dir` will include hidded files.  Hidden files in linux begin with a dot and are sometimes called dotfiles.
+
+  - `ls -l /dir` produces a long listing that gives greater detail about the files.
+
+  - Flags can also be combined: `ls -al`.
+
+### cd
+
+ A command to change the working directory.  
+
+- `cd /dir` will change to the /dir directory.
+
+- To quickly change to directories within your home directory (/home/pi), you can use the ~ shortcut for the home directory. For example, to change to the /home/pi/tjbot directory, enter: `cd ~/tjbot`.
+
+- One final shortcut.  If you find yourself regularly changing between two directories, you can use the `cd -` shortcut.  This simply alternates between the last two directories you have had as the working directory.
+
+### ip
+
+A command to display and set various ip network settings.
+- `ip addr` will show your ip address info.
+
+- `ip route` will show ip routing info.
+
+### Reboot / Shutdown
+
+- `sudo reboot` will reboot the Pi.
+
+- `sudo shutdown now` will shut it down.  Before unplugging your Pi, you should shut it down.  Shutdown takes about 30 seconds to complete.  You can tell it is done when the gree LED on the Pi stops blinking and just stays off.
+
+### System updates
+You should occasionally check for and apply system updates to ensure that bugs and security vulnerabilities are addressed.  This is done by executing the following 2 commands:  
+`sudo apt update`  
+`sudo apt upgrade`
 
 ## What Next
 
