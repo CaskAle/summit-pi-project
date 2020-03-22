@@ -26,7 +26,7 @@ Your kit should include an SD card that is already loaded with software called [
 
 - If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
-## But I don't have that stuff :frowning_face: (the harder way)
+## But I don't have all that stuff :frowning_face: (the harder way)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
 
