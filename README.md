@@ -15,5 +15,4 @@ Topics Include:
 
 - Notes regarding changes to the TJ Bot Recipes due to use of Raspberry Pi 4.
 
-## Click here -> [Summit Pi Project Notes](https://github.com/CaskAle/summit-pi-project/blob/master/summit-pi.md)
-
+**Click here -> [Summit Pi Project Notes](https://github.com/CaskAle/summit-pi-project/blob/master/summit-pi.md)**
