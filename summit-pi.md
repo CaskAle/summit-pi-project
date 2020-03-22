@@ -2,9 +2,13 @@
 
 This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
+If you are not comfortable with linux, you may want to read the section on [Useful Linux Commands](#useful-linux-command) before continuing.
+
+You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, right click on the links and select **Open in new tab**.
+
 ## IBM Network Considerations
 
-- You will likely not be able to use the IBM WiFi when running your Raspberry Pi as a headless device (no keyboard or display).  This is due to the fact that these is no way to enter the appropriate user and password info required to connect.
+- You will likely not be able to connect the Raspberry Pi as a headless device (no keyboard or display) to the IBM WiFi network.  This is due to the fact that there is no way to enter the appropriate user and password info required to connect.
 
 - If your site has Ethernet, it may be an option.  However, it will take some special preparations to ensure that each Raspberry Pi has a unique name.  Without a unique name, it will be very difficult to connect remotely to the device.  This is acomplished by [setting a unique hostname](#set-a-unique-hostname).
 
@@ -14,7 +18,7 @@ This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
 Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to [the harder way](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
 
-- If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).  
+- If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) and follow the instructions there.
 
 - Because you already have NOOBS, you can ignore the step that refers to setting up your SD card.
 
@@ -24,34 +28,39 @@ Your kit should include an SD card that is already loaded with software called [
 
 ## But I don't have that stuff :frowning_face: (the harder way)
 
-If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your device as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few changes to the SD card before putting it into the device and booting.
+If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
 
-1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, in this case, **DO NOT** skip the step that refers to setting up your SD card, **DO NOT** eject the SD card as indicated on the last step of the SD card setup, and **DO NOT** proceed to the next step, "Connect your Pi" until completing the following steps.
+1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, stop once you have completed the **Set up your SD card** step.  At that point, complete the following steps.
 
-2. Follow the instructions in [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) and the notes below on editing files to enable a WiFi connection and ssh at boot time.
+2. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) then return here to complete the steps to enable a WiFi connection and ssh at boot time.
 
-   - Editing files on the SD card from a Mac can be done by openning the "terminal" application.  From there, you should find the SD card's boot directory at `/Volumes/boot`.
+3. Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been installed onto the card.
 
-   - Use the "touch" command to create an empty file called ssh in the boot directory:  
-   `touch /Volumes/boot/ssh`.
+4. Editing files on the SD card from a Mac can be done by opening the "terminal" application on the Mac.  From there, you should find the SD card's boot directory at `/Volumes/boot`.  Use `cd /Volumes/boot` to get there.  If there does not seem to be a boot directory, repeat step 3 above.
 
-   - For WiFi, use the [nano](#nano) editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  Guidance on this file can be found in the [Configuring WiFi](#configuring-wifi) section.
+5. To enable ssh on the Pi, use the touch command to create an empty file called "ssh" in the /Volumes/boot directory:  
+`touch /Volumes/boot/ssh`
 
-   - Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.You can do this from either the desktop or from within the Finder.
+6. To enable WiFi on the Pi, use the [nano](#nano) text editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  
+`nano /Volumes/boot/wpa_supplicant.conf`  
+Guidance on the contents of this file can be found in the [Configuring WiFi](#configuring-wifi) section of this document.
 
-3. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+7. Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.  You can do this from either the desktop or from within the Finder application.
 
-   > Note: The instructions in the setup guide stop being relevant to a headless install once you get to the point where you invited to power up the device.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
+8. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
+   > Note: The instructions in the setup guide stop being relevant to a headless install once you complete this step.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
   
-4. Ensure that your mobile hotspot is turned on before powering up the device.
+9. Ensure that the WiFi network you wish to connect to is ready before powering up the device.
 
-5. Plug in your Pi.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect.  Eventually, your phone should indicate the number of devices that are connected to the hotspot and you can use this as one way to verify that the Pi is ready.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.
+10. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it via ssh.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  You can use this as one way to verify that the Pi is ready to accept connections.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.
 
-6. If your device is the only Raspberry Pi on the network (for instance, if you  [use your mobile phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
+11. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
 `ssh pi@raspberrypi`
 
-7. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  
+12. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  
 `sudo raspi-config`
+
+## Configuration Recommendations
 
 ### Set a unique hostname
 
@@ -64,10 +73,6 @@ There are several ways to set the hostname but the first option is probably the 
 - `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
 
 - `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
-
-### ssh
-
-In order to connect to the Pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password fo the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the pi, you can do so at any time by using the `passwd` command.
 
 ### Mobile Phone Hotspot
 
@@ -128,6 +133,10 @@ The vast majority of your work on the device will be done via a terminal.  While
 The linux help system. When dealing with the linux command line, the `man` command may be your best friend.  Most command line tools contain many flags and arguments that can be added to the command to modify the way the command works.  There can be so many of these flags that is becomes impossible to remember them all. Just check out `man ls` the simple command for listing a directory contents for an example of how many flags a command might have.  To use man, just enter the command followed by the command you want help with.  For example: `man systemctl` will bring up the man pages for the systemctl command.  
 > Note: Type the letter q to quit man when you are finished.
 
+### ssh
+
+In order to connect to the Pi remotely, you will use a tool called ssh (**S**ecure **SH**ell).  If you have set a unique hostname for your device, you should be able to connect to it with the command: `ssh pi@<hostname>.local`.  Where `<hostname>` is the unique hostname of your device.  Alternatively, if you know the ip address of your device, you can connect with: `ssh pi@xxx.xxx.xxx.xxx`. The use `pi@` indicates the username that you are connecting as.  The user pi is the default user on the device.  You will also need to enter the password for the user pi.  At this point it should become obvious that it is also critical that a unique password be set for your default user, pi.  If you did not create a unique password when you first set up the device, you can do so at any time by using the `passwd` command.
+
 ### sudo
 
 A program that allows users to run programs with the security privileges of another user, by default the superuser (root). It gets its name from "superuser do" as it was designed to run commands as the superuser.  The user pi is already authorized to use the sudo command so any command that you would like to execute as the root user just needs to be prefixed with sudo: `sudo some-command`.  You will then need to enter the password for the pi user.
@@ -135,7 +144,7 @@ A program that allows users to run programs with the security privileges of anot
 ### nano
 
  A text editor that uses a command line interface.  It is ideal for editing configuration files when accessing a pi remotely via ssh.  To edit a file with nano simply use the nano command followed by a file name:  
-`nano /dir1/dir2/filename`  
+`nano some-filename`  
 > **Note:** Editing system files on the Pi will also require the [sudo](#sudo) command.
 
 When done editing the file, enter `ctrl-x` and than answer yes or no when asked if you would like to save the file.
