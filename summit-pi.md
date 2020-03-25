@@ -60,7 +60,8 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 12. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  `sudo raspi-config`.  After you make these changes, be sure to select the option to reboot the Pi when you exit the raspi-config program.
 
 13. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  Proceed to the [TJBot Setup Notes](#tjbot-setup-notes).  
-< Note: you  now connect to your Pi with its new hostname, `ssh pi@some-new-hostname`
+
+> **Note**: you  now connect to your Pi with its new hostname, `ssh pi@some-new-hostname`
 
 ---
 
@@ -96,12 +97,12 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work.
 
 ### Hardware Testing
-There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  THe instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file located in "tjbot/bootstrap".
+There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file located in "tjbot/bootstrap".
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Raspberry Pi 4 LED Bug
 
-In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  At that point, execute the following six commands.  This will patch the LED Pi 4 bug and allow the LED to work properly.
+In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 1. Be sure that you are in the appropriate directory for the specific recipe or test you are working on:  
 `cd ~/Desktop/tjbot/bootstrap/tests`  
@@ -121,7 +122,7 @@ In all three of the recipe instructions you will come to a spot where you are in
 
 7. Now, you may proceed with the recipe where you left off.
 
-> **Note: you will need to repeat these steps for each of the TJBot recipes.**
+> **Note: you will need to repeat these steps for each of the TJBot recipes as you are working through them**
 
 ### Conversation Recipe Issues
 
