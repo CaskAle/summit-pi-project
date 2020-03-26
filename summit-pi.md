@@ -1,10 +1,10 @@
 # Summit-pi project
 
-This document is located at: <https://github.com/CaskAle/summit-pi-project>
+The primary focus of this document is to provide some guidance on using a Raspberry Pi as a headless device.  A headless device is one that does not have a keyboard, mouse, and display attached.  Servers, IoT devices, Networking equipment, and "_The Cloud_" are all examples of headless devices.  While primarily focussed on headless operation, the content may also prove useful to those who are using a more traditional setup. This document is located at: <https://github.com/CaskAle/summit-pi-project>
 
-If you are not comfortable with linux, you may want to read the section on [Useful Linux Commands](#useful-linux-command) before continuing.
+If you are not yet comfortable with linux and the command line, you may want to read the section on [Useful Linux Commands](#useful-linux-command) before continuing.
 
-You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, right click on the links and select **Open in new tab**.
+You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, use your browser's tab function and open multiple tabs.  Simply right click on the links and select **Open in new tab**.
 
 ## IBM Network Considerations
 
@@ -67,28 +67,26 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 
 ## TJBot Setup Notes
 
-1. From a terminal, run the following command to begin the TJBot installation:  
-`curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`
+The instructions setting up the Raspberry Pi as a TJBot are found here: [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests).  This file will also be found in the "tjbot/bootstrap" directory once the setup has completed.
 
-2. The install script will ask several questions.  Some guidance on on the correct responses follows:
+- Use ssh to connect to your device and run the following command to begin the TJBot setup:  
+`curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`  
+This kicks off an install script that will ask several questions.  In most cases, you should just accept the defaults.  However, in a few cases, described below, you may want to deviate from the default:
 
-   - **Hostname**:  
-    Due to the large number of devices that will be in play, decide on another hostname for your device.  Make sure that it is unique to you.  One way to acomlish this could be to add your IBM employee number to the end. (ex. tjbot-439321)
+  - **Hostname**:  
+  As previosly mentioned, due to the large number of Raspberry Pis that will be on your network, be sure you have a [unique hostname](#set-a-unique-hostname) for your device.
 
-   - **Quad 9 Nameservers**:  
-    The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
+  - **Quad 9 Nameservers**:  
+  The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
-   - **Camera**:  
-    The Summit kit does not include a camera.  If you get a camera later, it is very easy to add the camera support at that time wih the `sudo raspi-config` command.
+  - **Install Location**:  
+  The install script places the TJBot code into the ~/Desktop/tjbot directory.  While this is convenient for those with a display attached (the code will appear on the display desktop), it is not convenient for working via a remote terminal (just another directory to change into).  While not required, you may want to consider removing the "_desktop_" portion and installing directly to your home directory by specifying `~/tjbot`.
 
-   - **Install Location**:  
-    Many of the tjbot recipe instructions and scripts are written assuming that the default location for  the TJBot code (/home/pi/Desktop/tjbot) is chosen.  While not required, I suggest keeping the clone location to the default of `/home/pi/Desktop/tjbot`.
+  - **LED / Sound Conflict**:  
+  On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this issue is documented in the [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug) section.
 
-   - **LED / Sound Conflict**:  
-    On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this will be discussed in a later section.
-
-   - **Do not run the Hardware tests when asked**:  
-    Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Instead look below for the section on [Hardware Testing](#hardware-testing).
+  - **Do not run the Hardware tests when asked**:  
+  Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
 ---
 
@@ -97,7 +95,8 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work.
 
 ### Hardware Testing
-There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file located in "tjbot/bootstrap".
+
+There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in "tjbot/bootstrap".
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Raspberry Pi 4 LED Bug
@@ -105,10 +104,10 @@ There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be
 In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 1. Be sure that you are in the appropriate directory for the specific recipe or test you are working on:  
-`cd ~/Desktop/tjbot/bootstrap/tests`  
-`cd ~/Desktop/tjbot/recipes/conversation`  
-`cd ~/Desktop/tjbot/recipes/sentiment_analysis`  
-`cd ~/Desktop/tjbot/recipes/speech_to_text`
+`cd ~/tjbot/bootstrap/tests`  
+`cd ~/tjbot/recipes/conversation`  
+`cd ~/tjbot/recipes/sentiment_analysis`  
+`cd ~/tjbot/recipes/speech_to_text`
 
 2. `npm install`
 
@@ -151,9 +150,7 @@ If you are having trouble with the volume level of the speaker, you can adjust t
 
 ---
 
-## Configuration Recommendations
-
-### Set a unique hostname
+## Set a unique hostname
 
 The default host name for the device is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the Pi remotely.  Due to the large number of Pis that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
 
@@ -165,7 +162,7 @@ There are several ways to set the hostname but the first option is probably the 
 
 - `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
 
-### Mobile Phone Hotspot
+## Mobile Phone Hotspot
 
 Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
 
@@ -176,7 +173,7 @@ The configuration of your phone's hospot, will vary by manufacturer but generall
 
 - Follow the [Configuring WiFi](#configuring-wifi) instructions below to create an intial configuration in a headless environment or to add a network to an existing configuration.
 
-### Configuring WiFi
+## Configuring WiFi
 
 The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
 
@@ -220,7 +217,8 @@ network={
 
 The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
 
-### man 
+### man
+
 The linux help system. When dealing with the linux command line, the `man` command may be your best friend.  Most command line tools contain many flags and arguments that can be added to the command to modify the way the command works.  There can be so many of these flags that is becomes impossible to remember them all. Just check out `man ls` the simple command for listing a directory contents for an example of how many flags a command might have.  To use man, just enter the command followed by the command you want help with.  For example: `man systemctl` will bring up the man pages for the systemctl command.  
 > Note: Type the letter q to quit man when you are finished.
 
@@ -269,6 +267,7 @@ A command to list files in a directory.
 ### ip
 
 A command to display and set various ip network settings.
+
 - `ip addr` will show your ip address info.
 
 - `ip route` will show ip routing info.
@@ -280,6 +279,7 @@ A command to display and set various ip network settings.
 - `sudo shutdown now` will shut it down.  Before unplugging your Pi, you should shut it down.  Shutdown takes about 30 seconds to complete.  You can tell it is done when the gree LED on the Pi stops blinking and just stays off.
 
 ### System updates
+
 You should occasionally check for and apply system updates to ensure that bugs and security vulnerabilities are addressed.  This is done by executing the following 2 commands:  
 `sudo apt update`  
 `sudo apt upgrade`
