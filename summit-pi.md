@@ -104,10 +104,10 @@ There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be
 In all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
-`cd ~/tjbot/bootstrap/tests`  
-`cd ~/tjbot/recipes/conversation`  
-`cd ~/tjbot/recipes/sentiment_analysis`  
-`cd ~/tjbot/recipes/speech_to_text`
+`cd ~/tjbot/bootstrap/tests` - for the hardware tests.
+`cd ~/tjbot/recipes/conversation` - for the Conversation recipe.
+`cd ~/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.
+`cd ~/tjbot/recipes/speech_to_text` - for the Speech to Text recipe
 
 2. `npm install`
 
