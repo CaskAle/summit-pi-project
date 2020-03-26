@@ -67,7 +67,7 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 
 ## TJBot Setup Notes
 
-The instructions setting up the Raspberry Pi as a TJBot are found here: [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests).  This file will also be found in the "tjbot/bootstrap" directory once the setup has completed.
+The instructions setting up and using the Raspberry Pi as a TJBot are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file.  This file can be found in the "tjbot/bootstrap" directory once the setup has completed.
 
 - Use ssh to connect to your device and run the following command to begin the TJBot setup:  
 `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`  
@@ -90,9 +90,9 @@ This kicks off an install script that will ask several questions.  In most cases
 
 ---
 
-## TJBot recipe Issues
+## TJBot recipe Notes
 
-We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work.
+We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work properly.
 
 ### Hardware Testing
 
@@ -101,9 +101,9 @@ There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be
 
 ### Raspberry Pi 4 LED Bug
 
-In all three of the recipe instructions you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
+In all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
-1. Be sure that you are in the appropriate directory for the specific recipe or test you are working on:  
+1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
 `cd ~/tjbot/bootstrap/tests`  
 `cd ~/tjbot/recipes/conversation`  
 `cd ~/tjbot/recipes/sentiment_analysis`  
