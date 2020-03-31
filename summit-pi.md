@@ -67,7 +67,7 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 
 ## TJBot Setup Notes
 
-The instructions setting up and using the Raspberry Pi as a TJBot are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file.  This file can be found in the "tjbot/bootstrap" directory once the setup has completed.
+The instructions setting up and using the Raspberry Pi as a TJBot are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file.  This file can be found in the "~/Desktop/tjbot/bootstrap" directory once the setup has completed.
 
 - Use ssh to connect to your device and run the following command to begin the TJBot setup:  
 `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`  
@@ -79,14 +79,21 @@ This kicks off an install script that will ask several questions.  In most cases
   - **Quad 9 Nameservers**:  
   The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
+  - **nodejs**:
+  Answer when asked if you would like to install a newer version of Node.js.  You will be upgrading to an even newer version at the end of this setup exercise anyway.
+
   - **Install Location**:  
-  The install script places the TJBot code into the ~/Desktop/tjbot directory.  While this is convenient for those with a display attached (the code will appear on the display desktop), it is not convenient for working via a remote terminal (just another directory to change into).  While not required, you may want to consider removing the "_desktop_" portion and installing directly to your home directory by specifying `~/tjbot`.
+  All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
   - **LED / Sound Conflict**:  
   On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this issue is documented in the [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug) section.
 
   - **Do not run the Hardware tests when asked**:  
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
+
+- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 13 (latest as of April, 2020)
+`curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -`
+`sudo apt install -y nodejs`
 
 ---
 
@@ -96,7 +103,7 @@ We made the decision to provide you with the most recent version of the Raspberr
 
 ### Hardware Testing
 
-There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in "tjbot/bootstrap".
+There are a few programs in the "~/Desktop/tjbot/bootstrap/tests" directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in "~/Desktop/tjbot/bootstrap".
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Raspberry Pi 4 LED Bug
@@ -104,10 +111,10 @@ There are a few programs in the "tjbot/bootstrap/tests" directory.  These can be
 In all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
-`cd ~/tjbot/bootstrap/tests` - for the hardware tests.  
-`cd ~/tjbot/recipes/conversation` - for the Conversation recipe.  
-`cd ~/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.  
-`cd ~/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.
+`cd ~/Desktop/tjbot/bootstrap/tests` - for the hardware tests.  
+`cd ~/Desktop/tjbot/recipes/conversation` - for the Conversation recipe.  
+`cd ~/Desktop/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.  
+`cd ~/Desktop/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.
 
 2. `npm install`
 
