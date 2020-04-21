@@ -1,7 +1,6 @@
 # Summit-pi project
 
 The primary focus of this document is to provide some guidance on using a Raspberry Pi as a headless device.  A headless device is one that does not have a keyboard, mouse, and display attached.  Servers, IoT devices, Networking equipment, and "_The Cloud_" are all examples of headless devices.  While primarily focussed on headless operation, the content may also prove useful to those who are using a more traditional setup. This document is located at: <https://github.com/CaskAle/summit-pi-project>
-
 If you are not yet comfortable with linux and the command line, you may want to read the section on [Useful Linux Commands](#useful-linux-command) before continuing.
 
 You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, use your browser's tab function and open multiple tabs.  Simply right click on the links and select **Open in new tab**.
