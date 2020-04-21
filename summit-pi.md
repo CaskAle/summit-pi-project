@@ -91,8 +91,9 @@ This kicks off an install script that will ask several questions.  In most cases
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
 - When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 13 (latest as of April, 2020)
-`curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -`
-`sudo apt install -y nodejs`
+
+  - `curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -`  
+  - `sudo apt install -y nodejs`
 
 ---
 
@@ -102,7 +103,7 @@ We made the decision to provide you with the most recent version of the Raspberr
 
 ### Hardware Testing
 
-There are a few programs in the ~/Desktop/tjbot/bootstrap/tests directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in ~/Desktop/tjbot/bootstrap.
+There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in `~/Desktop/tjbot/bootstrap`.
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Raspberry Pi 4 LED Bug
