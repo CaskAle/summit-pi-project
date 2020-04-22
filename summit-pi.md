@@ -21,6 +21,8 @@ Your kit should include an SD card that is already loaded with software called [
 
 - Because you already have NOOBS, you can ignore the step that refers to setting up your SD card.
 
+- During the NOOBS initial setup, be sure to choose the **Raspbian Full** image.  Otherwise, you may not get all the required software installed.
+
 - Once you are up and running, take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
 
 - If you will always have access to the keyboard, mouse, and display, it will be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
@@ -29,36 +31,40 @@ Your kit should include an SD card that is already loaded with software called [
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
 
-1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above but, stop once you have completed the **Set up your SD card** step.  At that point, complete the following steps.
+1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above.
 
-2. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md).  Don't actually perform any of the step in the article.  Instead, return here and complete the steps below to enable a WiFi connection and ssh on your Pi.
+2. When creating your image, be sure to choose the **Raspbian Full** image.  Otherwise, you may not get all the required software installed.
 
-3. Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been created on the card.
+3. Stop once you have completed the **Set up your SD card** step.  At that point, complete the following steps.
 
-4. Editing files on the SD card from a Mac can be done by opening the "terminal" application on the Mac.  From there, you should find the SD card's boot directory at `/Volumes/boot`.  Use `cd /Volumes/boot` to get there.  If there does not seem to be a boot directory, repeat step 3 above.
+4. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md).  Don't actually perform any of the step in the article.  Instead, return here and complete the steps below to enable a WiFi connection and ssh on your Pi.
 
-5. To enable ssh on the Pi, use the touch command to create an empty file called "ssh" in the /Volumes/boot directory:  
+5. Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been created on the card.
+
+6. Editing files on the SD card from a Mac can be done by opening the "terminal" application on the Mac.  From there, you should find the SD card's boot directory at `/Volumes/boot`.  Use `cd /Volumes/boot` to get there.  If there does not seem to be a boot directory, repeat step 3 above.
+
+7. To enable ssh on the Pi, use the touch command to create an empty file called "ssh" in the /Volumes/boot directory:  
 `touch /Volumes/boot/ssh`
 
-6. To enable WiFi on the Pi, use the [nano](#nano) text editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  
+8. To enable WiFi on the Pi, use the [nano](#nano) text editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  
 `nano /Volumes/boot/wpa_supplicant.conf`  
 Guidance on the contents of this file can be found in the [Configuring WiFi](#configuring-wifi) section of this document.
 
-7. Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.  You can do this from either the desktop or from within the Finder application.
+9. Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.  You can do this from either the desktop or from within the Finder application.
 
-8. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
+10. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
    > Note: The instructions in the setup guide stop being relevant to a headless install once you complete this step.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
   
-9. Ensure that the WiFi network you wish to connect to is ready before powering up the device.
+11. Ensure that the WiFi network you wish to connect to is ready before powering up the device.
 
-10. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it via ssh.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  You can use this as one way to verify that the Pi is ready to accept connections.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.
+12. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it via ssh.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  You can use this as one way to verify that the Pi is ready to accept connections.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.
 
-11. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
+13. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it from a laptop, that is also connected to the same network, via ssh.  Open a terminal on your laptop and enter:  
 `ssh pi@raspberrypi`
 
-12. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  `sudo raspi-config`.  After you make these changes, be sure to select the option to reboot the Pi when you exit the raspi-config program.
+14. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with:  `sudo raspi-config`.  After you make these changes, be sure to select the option to reboot the Pi when you exit the raspi-config program.
 
-13. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  Proceed to the [TJBot Setup Notes](#tjbot-setup-notes).  
+15. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  Proceed to the [TJBot Setup Notes](#tjbot-setup-notes).  
 
 > **Note**: you  now connect to your Pi with its new hostname, `ssh pi@some-new-hostname`
 
@@ -90,10 +96,11 @@ This kicks off an install script that will ask several questions.  In most cases
   - **Do not run the Hardware tests when asked**:  
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
-- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)
+- Skip this for now, causes problems.  
+~~- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)~~
 
-  - `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`  
-  - `sudo apt install -y nodejs`
+  ~~- `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`~~
+  ~~- `sudo apt install -y nodejs`~~
 
 ---
 
