@@ -90,9 +90,9 @@ This kicks off an install script that will ask several questions.  In most cases
   - **Do not run the Hardware tests when asked**:  
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
-- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 13 (latest as of April, 2020)
+- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)
 
-  - `curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -`  
+  - `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`  
   - `sudo apt install -y nodejs`
 
 ---
