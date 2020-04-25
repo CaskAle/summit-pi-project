@@ -52,8 +52,8 @@ Guidance on the contents of this file can be found in the [Configuring WiFi](#co
 
 9. Be sure to eject the SD card properly.  **DO NOT** just remove it.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.  You can do this from either the desktop or from within the Finder application.
 
-10. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
-   > Note: The instructions in the setup guide stop being relevant to a headless install once you complete this step.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
+10. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+    > Note: The instructions in the setup guide stop being relevant to a headless install once you complete this step.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and ssh.
   
 11. Ensure that the WiFi network you wish to connect to is ready before powering up the device.
 
@@ -97,9 +97,8 @@ This kicks off an install script that will ask several questions.  In most cases
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
 - Skip this for now, causes problems.  
-~~- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)~~
-
-  ~~- `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`~~
+~~- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)~~  
+  ~~- `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`~~  
   ~~- `sudo apt install -y nodejs`~~
 
 ---
@@ -214,10 +213,12 @@ country=US
 network={
   ssid="<Mobile hotpot name>"
   psk="<Mobile hotpot password>"
+}
 
 network={
   ssid="<Home WiFi name>"
   psk="<Home WiFi password>"
+}
 
 network={
   ssid="<Another WiFi name>"
