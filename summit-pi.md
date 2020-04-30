@@ -96,16 +96,30 @@ This kicks off an install script that will ask several questions.  In most cases
   - **Do not run the Hardware tests when asked**:  
   Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
 
-- Skip this for now, causes problems.  
-~~- When the setup script completes, run the following two commands in order to upgrade your the nodejs installed on the Pi to version 12 (latest as of April, 2020)~~  
-  ~~- `curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -`~~  
-  ~~- `sudo apt install -y nodejs`~~
-
 ---
 
 ## TJBot recipe Notes
 
 We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work properly.
+
+### Node.js and npm
+
+When executing the `npm install` portion of the recipes, you will likely see the following warnings:
+
+``` script
+npm WARN npm npm does not support Node.js v10.15.2
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+```
+
+You can safely ignore these warnings and everything will work fine.  
+
+If you wish to update your Node.js and npm to the latest (v14 is the latest as of April, 2020), run the following two commands:  
+**Skip this for now, causes problems.**  
+  ~~`curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -`~~  
+  ~~`sudo apt install -y nodejs`~~
 
 ### Hardware Testing
 
@@ -113,8 +127,10 @@ There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  Th
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Wiring up the LED
-Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  ![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
+Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+
+![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
 ### Raspberry Pi 4 LED Bug
 
