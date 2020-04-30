@@ -112,6 +112,10 @@ We made the decision to provide you with the most recent version of the Raspberr
 There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in `~/Desktop/tjbot/bootstrap`.
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
+### Wiring up the LED
+Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or fell along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  ![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
+
+
 ### Raspberry Pi 4 LED Bug
 
 In all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
