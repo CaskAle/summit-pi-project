@@ -113,7 +113,7 @@ There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  Th
 > Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
 
 ### Wiring up the LED
-Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or fell along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  ![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
+Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  ![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
 
 ### Raspberry Pi 4 LED Bug
