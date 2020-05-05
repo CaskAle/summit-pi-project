@@ -117,7 +117,7 @@ npm WARN npm You can find the latest version at https://nodejs.org/
 You can safely ignore these warnings and everything will work fine.  
 
 If you wish to update your Node.js and npm to the latest (v14 is the latest as of April, 2020), run the following two commands:  
-**Skip this for now, causes problems.**  
+**DO NOT UPDATE node.js at this time, it breaks stuff.**  
   ~~`curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -`~~  
   ~~`sudo apt install -y nodejs`~~
 
