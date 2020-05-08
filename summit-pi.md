@@ -128,9 +128,13 @@ There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  Th
 
 ### Wiring up the LED
 
-Correct wiring of the LED is pretty important.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+Be sure to use the larger RGB LED that came packaged in a pack of 5.
 
-![alt text](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
+![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
+
+Correct wiring of the LED is Critical.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+
+![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
 ### Raspberry Pi 4 LED Bug
 
