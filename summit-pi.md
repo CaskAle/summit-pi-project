@@ -138,7 +138,7 @@ Correct wiring of the LED is Critical.  If you wire it backwards, you will fry i
 
 ### Raspberry Pi 4 LED Bug
 
-In all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
+In the hardware tests and all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
 `cd ~/Desktop/tjbot/bootstrap/tests` - for the hardware tests.  
