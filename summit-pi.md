@@ -142,9 +142,9 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
 `cd ~/Desktop/tjbot/bootstrap/tests` - for the hardware tests.  
+`cd ~/Desktop/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.
 `cd ~/Desktop/tjbot/recipes/conversation` - for the Conversation recipe.  
 `cd ~/Desktop/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.  
-`cd ~/Desktop/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.
 
 2. `npm install`
 
