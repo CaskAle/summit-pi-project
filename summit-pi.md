@@ -15,7 +15,7 @@ You will very likely wish to keep these instructions active for reference while 
 
 ## Set up the Raspberry Pi (the easy way :smile:)
 
-Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to: [But I don't have all that stuff :frowning_face:](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
+Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to: [But I don't have all that stuff :confused:](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
 
 - If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) and follow the instructions there.
 
@@ -27,7 +27,7 @@ Your kit should include an SD card that is already loaded with software called [
 
 - If you will always have access to the keyboard, mouse, and display, it may be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
-## But I don't have all that stuff (the harder way :frowning_face:)
+## But I don't have all that stuff (the harder way :confused:)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
 
