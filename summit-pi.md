@@ -13,7 +13,7 @@ You will very likely wish to keep these instructions active for reference while 
 
 - One very helpful and recommended option inside IBM is to leverage the WiFi hotspot capability of your mobile phone to connect to your .  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
 
-## Set up the Raspberry Pi (the easy way :smiling_face:)
+## Set up the Raspberry Pi (the easy way :smile:)
 
 Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to: [But I don't have all that stuff :frowning_face:](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
 
