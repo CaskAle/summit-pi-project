@@ -1,6 +1,6 @@
 # Useful Linux Commands
 
-The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
+The vast majority of your work on the device will be done via a terminal and the ssh program.  While this list is far from complete, here are some useful commands that will help you to navigate the linux command line.
 
 ## man
 
