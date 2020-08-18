@@ -32,7 +32,7 @@ We made the decision to provide you with the most recent version of the Raspberr
 
 ### Node.js and npm
 
-When executing the `npm install` portion of the recipes, you will likely see the following warnings:
+When executing the `npm install` portion of these recipes, you will likely see the following warnings:
 
 ``` script
 npm WARN npm npm does not support Node.js v10.15.2
@@ -57,7 +57,7 @@ Be sure to use the larger RGB LED that came packaged in a pack of 5.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
-Correct wiring of the LED is Critical.  If you wire it backwards, you will fry it.  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+**Correct wiring of the LED is Critical.  If you wire it incorrectly, you will fry it.**  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
