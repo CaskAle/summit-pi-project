@@ -73,9 +73,9 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 2. `npm install`
 
-3. `npm install rpi-ws281x-native@latest`
+3. ~~`npm install rpi-ws281x-native@'latest`~~
 
-4. `git clone --single-branch --branch raspi4support https://github.com/CaskAle/rpi_ws281x.git`
+4. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
 
 5. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
 
