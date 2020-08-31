@@ -81,9 +81,9 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 6. `npm build node_modules/rpi-ws281x-native`
 
-7. Edit the file `./node_modules/rpi-ws281x-native//lib/ws281x-native.js`
+7. Edit the file `./node_modules/rpi-ws281x-native//lib/ws281x-native.js`.
 
-   - Search for a block of code that looks like this:  
+   - Search for a block of code that looks like this (at or near line 43):  
 
      ```javascript
      switch(socFamily[1].toLowerCase()) {
@@ -112,8 +112,7 @@ In the hardware tests and all three of the [recipe instructions](https://github.
      }
      ```
 
-   - Save the file and exit the editor
-
+   - Save the file and exit the editor.
 
 8. Now, you may proceed with the recipe where you left off.
 
@@ -123,17 +122,23 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 - The ~~conversation workspace ID~~ that you are asked to make note of is now called a **_Skill ID_**.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
 
-- Due to the issue described in the [Speaker Not Working](#speaker-not-working) section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
+- Due to the issue described in the [Speaker Not Working](#speaker-not-working) section, below.  You will need to prevent the LED from get initialized in this recipe. To do this, you will need to make a small edit to the code in the recipe's conversation.js file.  
 
-   ```javascript
-   // these are the hardware capabilities that TJ needs for this recipe
-   var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
-   if (config.hasCamera == false) {
-    hardware = ['microphone', 'speaker', 'led', 'servo'];
-   }
-   ```
+  - Edit the file `./conversation.js`.
+  - Search for a block of code that looks like this (at or near line 26):
 
-- You need to remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
+    ```javascript
+    // these are the hardware capabilities that TJ needs for this recipe
+    var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
+    if (config.hasCamera == false) {
+        hardware = ['microphone', 'speaker', 'led', 'servo'];
+    }
+    ```
+
+  - Remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  
+  - Save the file and exit the editor.
+
+- Now you may proceed with the recipe.
 
 #### Speaker Not Working
 
