@@ -34,7 +34,7 @@ We made the decision to provide you with the most recent version of the Raspberr
 
 When executing the `npm install` portion of these recipes, you will likely see the following warnings:
 
-``` script
+```script
 npm WARN npm npm does not support Node.js v10.15.2
 npm WARN npm You should probably upgrade to a newer version of node as we
 npm WARN npm can't make any promises that npm will work with this version.
@@ -73,7 +73,7 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 2. `npm install`
 
-3. ~~`npm install rpi-ws281x-native@'latest`~~
+3. ~~`npm install rpi-ws281x-native@'latest`~~ (skip this)
 
 4. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
 
@@ -81,9 +81,43 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 6. `npm build node_modules/rpi-ws281x-native`
 
-7. Now, you may proceed with the recipe where you left off.
+7. Edit the file `./node_modules/rpi-ws281x-native//lib/ws281x-native.js`
 
-> **Note: you will need to repeat these steps for each of the TJBot recipes as you are working through them**
+   - Search for a block of code that looks like this:  
+
+     ```javascript
+     switch(socFamily[1].toLowerCase()) {
+         case 'bcm2708': return 1;
+         case 'bcm2835': return 1;
+         case 'bcm2709': return 2;
+         default: return 0;
+     }
+     ```
+
+   - Add an additional case to this switch statement:
+
+     ```javascript
+     case 'bcm2711': return 2;
+     ```
+
+   - The switch block should now look like this:
+
+     ```javascript
+     switch(socFamily[1].toLowerCase()) {
+         case 'bcm2708': return 1;
+         case 'bcm2835': return 1;
+         case 'bcm2709': return 2;
+         case 'bcm2711': return 2;
+         default: return 0;
+     }
+     ```
+
+   - Save the file and exit the editor
+
+
+8. Now, you may proceed with the recipe where you left off.
+
+> **Note: Because each recipe installs its own node_modules via the npm install command, you will need to repeat these steps for each of the TJBot recipes as you are working through them**
 
 ### Conversation Recipe Issues
 
@@ -91,15 +125,15 @@ In the hardware tests and all three of the [recipe instructions](https://github.
 
 - Due to the issue described in the [Speaker Not Working](#speaker-not-working) section, below.  Ensure that the LED does not get initialized. javascript code in the conversation.js file.  In order to prevent the LED from initializing is to edit the conversation.js file.  In that file, at or near line 26, you should see the following code:
 
-```javascript
-// these are the hardware capabilities that TJ needs for this recipe
-var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
-if (config.hasCamera == false) {
+   ```javascript
+   // these are the hardware capabilities that TJ needs for this recipe
+   var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
+   if (config.hasCamera == false) {
     hardware = ['microphone', 'speaker', 'led', 'servo'];
-}
-```
+   }
+   ```
 
-You need to remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
+- You need to remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  Save the file and you are ready to go.  If you do not do this, you will just get a bunch of garbled noise.
 
 #### Speaker Not Working
 
