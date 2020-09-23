@@ -67,6 +67,12 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 10. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  You can connect to your Pi using ssh with its new hostname using the command: `ssh pi@my-pi-hostname`.  This will also connect you using the default userid on the the Pi (pi) so you will also need to enter the password for the pi user.  The default password for the user pi is `raspberry`.  If you did not create a unique password when you set up the device, you can do so at any time by using the `passwd` command from a terminal.
 
+## Your Raspberry Pi should now be ready to start working on the TJBot Recipes
+
+There are a few gotchas and fixes that you will need to perform on your Raspberry Pi as you go through these recipes.  Please proceed to the following document and use it as a guide for completing the recipes.
+
+[TJBot Setup Notes](https://github.com/CaskAle/summit-pi-project/blob/master/TJBot-setup-notes.md)
+
 ## What Next
 
 learn linux  
