@@ -27,6 +27,8 @@ Your kit should include an SD card that is already loaded with software called [
 
 - If you will always have access to the keyboard, mouse, and display, it may be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
+Jump ahead now to the section entitled [TJBot Setup Notes](#TJBot-Setup-Notes)
+
 ## But I don't have all that stuff (the harder way :confused:)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
@@ -67,7 +69,9 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 10. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  You can connect to your Pi using ssh with its new hostname using the command: `ssh pi@my-pi-hostname`.  This will also connect you using the default userid on the the Pi (pi) so you will also need to enter the password for the pi user.  The default password for the user pi is `raspberry`.  If you did not create a unique password when you set up the device, you can do so at any time by using the `passwd` command from a terminal.
 
-## Your Raspberry Pi should now be ready to start working on the TJBot Recipes
+## TJBot Setup Notes
+
+Your Raspberry Pi should now be ready to start working on the TJBot Recipes
 
 There are a few gotchas and fixes that you will need to perform on your Raspberry Pi as you go through these recipes.  Please proceed to the following document and use it as a guide for completing the recipes.
 
