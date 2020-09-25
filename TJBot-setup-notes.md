@@ -13,8 +13,8 @@ This kicks off an install script that will ask several questions.  In most cases
   The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
   - **nodejs**:
-  Answer when asked if you would like to install a newer version of Node.js.  You will be upgrading to an even newer version at the end of this setup exercise anyway.
-
+  Answer **NO** when asked if you would like to install a newer version of Node.js.
+  
   - **Install Location**:  
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
