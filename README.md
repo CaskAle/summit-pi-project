@@ -118,7 +118,7 @@ The WiFi configuration is stored in a file called wpa_supplicant located in the 
 
 - In the sample below, replace the bracketted text and the brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
 
-- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project/blob/master/wpa_supplicant.conf>) file that can copied, modified, and used.
+- Here is a sample wpa_supplicant.conf file that can copied, modified, and used.
 
 ```bash
 # /etc/wpa_supplicant/wpa_supplicant.conf

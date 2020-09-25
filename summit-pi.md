@@ -118,7 +118,7 @@ The WiFi configuration is stored in a file called wpa_supplicant located in the 
 
 - In the sample below, replace the bracketted text and the brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
 
-- Here is a sample [wpa_supplicant.conf](<https://github.com/CaskAle/summit-pi-project/blob/master/wpa_supplicant.conf>) file that can copied, modified, and used.
+- Here is a sample wpa_supplicant.conf file that can copied, modified, and used.
 
 ```bash
 # /etc/wpa_supplicant/wpa_supplicant.conf
@@ -230,5 +230,3 @@ You should occasionally check for and apply system updates to ensure that bugs a
 - If your site has Ethernet, it may be an option.  However, it will take some special preparations to ensure that each Raspberry Pi has a unique name.  Without a unique name, it will be very difficult to connect remotely to the device.  This is acomplished by [setting a unique hostname](#set-a-unique-hostname).
 
 - One very helpful and recommended option inside IBM is to leverage the WiFi hotspot capability of your mobile phone to connect to your .  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
-
-
