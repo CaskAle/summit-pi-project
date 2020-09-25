@@ -5,14 +5,6 @@ If you are not yet comfortable with linux and the command line, you may want to 
 
 You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, use your browser's tab function and open multiple tabs.  Simply right click on the links and select **Open in new tab**.
 
-## IBM Network Considerations
-
-- You will likely not be able to connect the Raspberry Pi as a headless device (no keyboard or display) to the IBM WiFi network.  This is due to the fact that there is no way to enter the appropriate user and password info required to connect.
-
-- If your site has Ethernet, it may be an option.  However, it will take some special preparations to ensure that each Raspberry Pi has a unique name.  Without a unique name, it will be very difficult to connect remotely to the device.  This is acomplished by [setting a unique hostname](#set-a-unique-hostname).
-
-- One very helpful and recommended option inside IBM is to leverage the WiFi hotspot capability of your mobile phone to connect to your .  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
-
 ## Set up the Raspberry Pi (the easy way :relieved:)
 
 Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to: [But I don't have all that stuff :confused:](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
@@ -228,3 +220,15 @@ A command to display and set various ip network settings.
 You should occasionally check for and apply system updates to ensure that bugs and security vulnerabilities are addressed.  This is done by executing the following 2 commands:  
 `sudo apt update`  
 `sudo apt upgrade`
+
+---
+
+## IBM Network Considerations
+
+- You will likely not be able to connect the Raspberry Pi as a headless device (no keyboard or display) to the IBM WiFi network.  This is due to the fact that there is no way to enter the appropriate user and password info required to connect.
+
+- If your site has Ethernet, it may be an option.  However, it will take some special preparations to ensure that each Raspberry Pi has a unique name.  Without a unique name, it will be very difficult to connect remotely to the device.  This is acomplished by [setting a unique hostname](#set-a-unique-hostname).
+
+- One very helpful and recommended option inside IBM is to leverage the WiFi hotspot capability of your mobile phone to connect to your .  Check out [Mobile Phone Hotspot](#mobile-phone-hotspot) for details.
+
+
