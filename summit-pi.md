@@ -56,7 +56,7 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
   
 6. Ensure that the WiFi network you wish to connect to is ready before powering up the Raspberry Pi.  ie. Make sure that you have turned on your phone's hotspot if that is how you are connecting.
 
-7. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  You can use this as one way to verify that the Pi is ready to accept connections.  You can also look for the blinking green light on the Pi that indicates WiFi data is flowing.  To verify that the device is connected to the network, use the ping command.  
+7. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  To verify that the device is connected to the network, use the ping command.  
 `ping -c 5 raspberrypi.local`
 
 8. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it, via ssh, over the network from a laptop, that is also connected to the same network.  Open a terminal on your laptop and enter:  
