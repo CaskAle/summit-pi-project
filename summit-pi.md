@@ -35,7 +35,9 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above.
 
-2. When creating your image, be sure to choose the **Raspbian Full** image.  Otherwise, you may not get all the necessary software installed.
+2. When creating your image, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
+
+   > Note: you will need to select the **Raspberry PI OS (other)** first, and then you will see the option to select the Full version.
 
 3. **STOP once you have completed the Set up your SD card** step and, at that point, complete the following steps.
 
