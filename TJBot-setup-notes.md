@@ -49,7 +49,7 @@ You can safely ignore these warnings and everything will work fine.
 ### Hardware Testing
 
 There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in `~/Desktop/tjbot/bootstrap`.
-> Note: The LED test will require patching before use.  See: [Patching Raspberry Pi 4 Bugs (#patching-raspberry-pi-4-bugs).
+> Note: The LED test will require patching before use.  See: [Patching Raspberry Pi 4 Bugs](#patching-raspberry-pi-4-bugs).
 
 ### Wiring up the LED
 
