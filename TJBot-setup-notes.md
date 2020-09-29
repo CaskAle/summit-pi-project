@@ -83,7 +83,7 @@ In the hardware tests and in all three of the [recipe instructions](https://gith
 
 6. `npm build node_modules/rpi-ws281x-native`
 
-7. Edit the file `./node_modules/rpi-ws281x-native//lib/ws281x-native.js`.
+7. Edit the file `./node_modules/rpi-ws281x-native/lib/ws281x-native.js`.
 
    - Search for a block of code that looks like this (at or near line 43):  
 
