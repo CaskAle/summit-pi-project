@@ -49,7 +49,7 @@ You can safely ignore these warnings and everything will work fine.
 ### Hardware Testing
 
 There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in `~/Desktop/tjbot/bootstrap`.
-> Note: The LED test will require patching before use.  See: [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug).
+> Note: The LED test will require patching before use.  See: [Patching Raspberry Pi 4 Bugs (#patching-raspberry-pi-4-bugs).
 
 ### Wiring up the LED
 
@@ -63,7 +63,7 @@ Be sure to use the larger RGB LED that came packaged in a pack of 5.
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-### Patching Raspberry Pi 4 Bugs (LED and Microphone)
+### Patching Raspberry Pi 4 Bugs
 
 In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop at this point** and instead, execute the following eight steps.  This will patch the LED and microphone bugs to allow them to work properly on a Raspberry Pi 4.
 
