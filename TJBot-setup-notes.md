@@ -63,9 +63,9 @@ Be sure to use the larger RGB LED that came packaged in a pack of 5.
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-### Raspberry Pi 4 LED Bug
+### Patching Raspberry Pi 4 Bugs (LED and Microphone)
 
-In the hardware tests and all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Do Not run that command**.  Instead, execute the following six steps.  This will patch the LED Pi 4 bug and allow the LED to work properly.
+In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop at this point** and instead, execute the following eight steps.  This will patch the LED and microphone bugs to allow them to work properly on a Raspberry Pi 4.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
 `cd ~/Desktop/tjbot/bootstrap/tests` - for the hardware tests.  
