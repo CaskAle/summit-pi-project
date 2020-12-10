@@ -68,7 +68,7 @@ Be sure to use the larger RGB LED that came packaged in a pack of 5.
 In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop at this point** and instead, execute the following eight steps.  This will patch the LED and microphone bugs to allow them to work properly on a Raspberry Pi 4.
 
 1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
-`cd ~/Desktop/tjbot/bootstrap/tests` - for the hardware tests.  
+`cd ~/Desktop/tjbot/tests` - for the hardware tests.  
 `cd ~/Desktop/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.  
 `cd ~/Desktop/tjbot/recipes/conversation` - for the Conversation recipe.  
 `cd ~/Desktop/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.
