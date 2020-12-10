@@ -73,52 +73,13 @@ In the hardware tests and in all three of the [recipe instructions](https://gith
 `cd ~/Desktop/tjbot/recipes/conversation` - for the Conversation recipe.  
 `cd ~/Desktop/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.
 
-2. `npm install`
+1. `npm install`
+1. ~~`npm install rpi-ws281x-native@'latest`~~ (skip this)
+1. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
+1. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
+1. Now, you may proceed with the recipe where you left off.
 
-3. ~~`npm install rpi-ws281x-native@'latest`~~ (skip this)
-
-4. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
-
-5. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
-
-6. `npm build node_modules/rpi-ws281x-native`
-
-7. Edit the file `./node_modules/rpi-ws281x-native/lib/ws281x-native.js`.
-
-   - Search for a block of code that looks like this (at or near line 43):  
-
-     ```javascript
-     switch(socFamily[1].toLowerCase()) {
-         case 'bcm2708': return 1;
-         case 'bcm2835': return 1;
-         case 'bcm2709': return 2;
-         default: return 0;
-     }
-     ```
-
-   - Add an additional case to this switch statement:
-
-     ```javascript
-     case 'bcm2711': return 2;
-     ```
-
-   - The switch block should now look like this:
-
-     ```javascript
-     switch(socFamily[1].toLowerCase()) {
-         case 'bcm2708': return 1;
-         case 'bcm2835': return 1;
-         case 'bcm2709': return 2;
-         case 'bcm2711': return 2;
-         default: return 0;
-     }
-     ```
-
-   - Save the file and exit the editor.
-
-8. Now, you may proceed with the recipe where you left off.
-
-> **Note: Because each recipe installs its own node_modules via the npm install command, you will need to repeat these steps for each of the TJBot recipes as you are working through them**
+>**Note: Because each recipe installs its own node_modules via the npm install command, you will need to repeat these steps for each of the TJBot recipes as you are working through them**
 
 ### Conversation Recipe Issues
 
