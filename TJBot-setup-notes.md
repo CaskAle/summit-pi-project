@@ -77,6 +77,7 @@ In the hardware tests and in all three of the [recipe instructions](https://gith
 1. ~~`npm install rpi-ws281x-native@'latest`~~ (skip this)
 1. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
 1. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
+1. `npm build node_modules/rpi-ws281x-native`
 1. Now, you may proceed with the recipe where you left off.
 
 >**Note: Because each recipe installs its own node_modules via the npm install command, you will need to repeat these steps for each of the TJBot recipes as you are working through them**
