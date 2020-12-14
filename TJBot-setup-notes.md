@@ -13,47 +13,53 @@ This kicks off an install script that will ask several questions.  In most cases
   The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
   - **nodejs**:
-  Answer **NO** when asked if you would like to install a newer version of Node.js.
-  
+  Answer **Y** when asked if you would like to install a newer version of Node.js.  The Node.js that is pre installed on the Raspberry Pi OS does not work properly with the latest tjbot libraries.
+
   - **Install Location**:  
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
   - **LED / Sound Conflict**:  
-  On the later models of Raspberry Pi, it no longer appears to be necessary to disable the kernel sound modules in order for the LED to work.  You should answer **No** to this question.  However, the LED and the speaker still have issues working well together.  The resolution of this issue is documented in the [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug) section.
+  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug) section.
 
   - **Do not run the Hardware tests when asked**:  
-  Due to the LED/Speaker issue as well as a known bug with the Raspberry Pi 4, running the hardware tests at this point is an exercise in futility.  Proper instructions for running the tests later are found in the [Hardware Testing](#hardware-testing) section.
+  Due to the LED/Speaker issue as well as a need to update the tjbot libraries will result in test failure.  There are instructions for running them in the [Perform Hardware Tests](#perform-hardware-tests) section once the TJBot libraries have been updated.
 
----
+## TJBot Special Notes
 
-## TJBot recipe Notes
+### Update your System and Node.js
 
-We made the decision to provide you with the most recent version of the Raspberry Pi (version 4) as they are much higher performing.  However, the TJBot recipes were designed with an older Raspberry Pi in mind.  As a result, there are a couple of places where you will need to apply a patch to the code in order for the recipes to work properly.
+Is is important to be running the lates version Node.js(currently 15.x).  If you did not update your Node.js during the TJBot install process, you will need to do it now.  Included here will also be instructions for first performing an update of the Raspberry Pi OS.
 
-### Node.js and npm
+1. Perform a full system update by executing the following two commands:
 
-When executing the `npm install` portion of these recipes, you will likely see the following warnings:
+   ``` bash
+   sudo apt update
+   sudo apt full-upgrade -y
+   ```
 
-```script
-npm WARN npm npm does not support Node.js v10.15.2
-npm WARN npm You should probably upgrade to a newer version of node as we
-npm WARN npm can't make any promises that npm will work with this version.
-npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
-npm WARN npm You can find the latest version at https://nodejs.org/
-```
+1. Ensure that the latest Node.js is installed by executing the following 2 commands:
 
-You can safely ignore these warnings and everything will work fine.  
+   ``` bash
+   curl -sL https://deb.nodesource.com/setup_15.x | sudo bash -
+   apt-get install -y nodejs
+   ```
 
-**DO NOT UPDATE node.js at this time, it breaks stuff.**  
+1. Reboot the Raspbery Pi:
 
-### Hardware Testing
+   ``` bash
+   sudo reboot
+   ```
 
-There are a few programs in the `~/Desktop/tjbot/bootstrap/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md#running-hardware-tests) file located in `~/Desktop/tjbot/bootstrap`.
-> Note: The LED test will require patching before use.  See: [Patching Raspberry Pi 4 Bugs](#patching-raspberry-pi-4-bugs).
+1. In just a couple minutes you should be able to reconnect to your Raspberry Pi.
+
+
+### Perform Hardware Tests
+
+There are a few test programs in the `~/Desktop/tjbot/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/tree/master/tests) file located in `~/Desktop/tjbot/tests`.
 
 ### Wiring up the LED
 
-Be sure to use the larger RGB LED that came packaged in a pack of 5.
+Be sure to use the larger RGB LED that came packaged in a separate pack of 5.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
@@ -63,52 +69,23 @@ Be sure to use the larger RGB LED that came packaged in a pack of 5.
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-### Patching Raspberry Pi 4 Bugs
+### Update the TJBot Node.js Libraries
 
-In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop at this point** and instead, execute the following eight steps.  This will patch the LED and microphone bugs to allow them to work properly on a Raspberry Pi 4.
+In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop after performing that step** and execute the following command before proceeding to the next step of the recipe instructions.  This will update the TJBot Node.js libraries to allow them to work properly on a Raspberry Pi 4.
 
-1. Be sure that you are in the appropriate directory for the respective recipe or test you are working on:  
-`cd ~/Desktop/tjbot/tests` - for the hardware tests.  
-`cd ~/Desktop/tjbot/recipes/speech_to_text` - for the Speech to Text recipe.  
-`cd ~/Desktop/tjbot/recipes/conversation` - for the Conversation recipe.  
-`cd ~/Desktop/tjbot/recipes/sentiment_analysis` - for the Sentiment Analysis recipe.
+Update the TJBot libraries:
 
-1. `npm install`
-1. ~~`npm install rpi-ws281x-native@'latest`~~ (skip this)
-1. `git clone --single-branch --branch raspi4support https://github.com/jimbotel/rpi_ws281x.git`
-1. `cp -r rpi_ws281x/* node_modules/rpi-ws281x-native/src/rpi_ws281x`
-1. `npm build node_modules/rpi-ws281x-native`
-1. Now, you may proceed with the recipe where you left off.
+   ``` bash
+   npm update
+   ```
 
->**Note: Because each recipe installs its own node_modules via the npm install command, you will need to repeat these steps for each of the TJBot recipes as you are working through them**
-
-### Conversation Recipe Issues
-
-- The ~~conversation workspace ID~~ that you are asked to make note of is now called a **_Skill ID_**.  You can find it by clicking the 3 dot menu to the right of the dialog you just imported.
-
-- Due to the issue described in the [Speaker Not Working](#speaker-not-working) section, below.  You will need to prevent the LED from get initialized in this recipe. To do this, you will need to make a small edit to the code in the recipe's conversation.js file.  
-
-  - Edit the file `./conversation.js`.
-  - Search for a block of code that looks like this (at or near line 26):
-
-    ```javascript
-    // these are the hardware capabilities that TJ needs for this recipe
-    var hardware = ['microphone', 'speaker', 'led', 'servo', 'camera'];
-    if (config.hasCamera == false) {
-        hardware = ['microphone', 'speaker', 'led', 'servo'];
-    }
-    ```
-
-  - Remove the two references to the LED that look like this: **`'led',`**.  Be sure to remove the the tick marks, the word led, and the trailing comma as well.  
-  - Save the file and exit the editor.
-
-- Now you may proceed with the recipe.
+>**Note**: Because each recipe (and the hardware tests) installs it's own set of Node.js modules via the npm install command, you will need to repeat the npm update command each time that you are instructed to perform the npm install command.
 
 #### Speaker Not Working
 
-Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device. `sudo reboot`.  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the LED is initialized.
-> Note: This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
+Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
+> **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
 
 #### Speaker Volume
 
-If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear.
+If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
