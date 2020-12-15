@@ -61,7 +61,8 @@ Be sure to use the larger RGB LED that came packaged in a separate pack of 5.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
-**Correct wiring of the LED is critical.  If you wire it backwards, you will burn it out.**  
+**Correct wiring of the LED is critical.  If you wire it backwards, you will burn it out.**
+
 If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
