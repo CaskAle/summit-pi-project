@@ -69,18 +69,6 @@ Be sure to use the larger RGB LED that came packaged in a separate pack of 5.
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-### Update the TJBot Node.js Libraries
-
-In the hardware tests and in all three of the [recipe instructions](https://github.com/ibmtjbot/tjbot/tree/master/recipes) you will come to a spot where you are instructed to run the command: `npm install`.  **Stop after performing that step** and execute the following command before proceeding to the next step of the recipe instructions.  This will update the TJBot Node.js libraries to allow them to work properly on a Raspberry Pi 4.
-
-Update the TJBot libraries:
-
-   ``` bash
-   npm update
-   ```
-
->**Note**: Because each recipe (and the hardware tests) installs it's own set of Node.js modules via the npm install command, you will need to repeat the npm update command each time that you are instructed to perform the npm install command.
-
 #### Speaker Not Working
 
 Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
