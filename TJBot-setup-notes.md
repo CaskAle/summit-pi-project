@@ -26,31 +26,27 @@ This kicks off an install script that will ask several questions.  In most cases
 
 ## TJBot Special Notes
 
-### Update your System and Node.js
+### Update your Raspberry Pi OS and Node.js
 
-Is is important to be running the lates version Node.js(currently 15.x).  If you did not update your Node.js during the TJBot install process, you will need to do it now.  Included here will also be instructions for first performing an update of the Raspberry Pi OS.
+Is is important to be running the lates version Node.js (currently 15.x).  If you did not update your Node.js during the TJBot install process, you will need to do it now.  Included here will also be instructions for first performing an update of the Raspberry Pi OS.
 
 1. Perform a full system update by executing the following two commands:
 
-   ``` bash
-   sudo apt update
-   sudo apt full-upgrade -y
-   ```
+   `sudo apt update`  
+
+   `sudo apt full-upgrade -y`  
 
 1. Ensure that the latest Node.js is installed by executing the following 2 commands:
 
-   ``` bash
-   curl -sL https://deb.nodesource.com/setup_15.x | sudo bash -
-   apt-get install -y nodejs
-   ```
+   `curl -sL https://deb.nodesource.com/setup_15.x | sudo bash -`  
+
+   `apt-get install -y nodejs`
 
 1. Reboot the Raspbery Pi:
 
-   ``` bash
-   sudo reboot
-   ```
+   `sudo reboot`
 
-1. In just a couple minutes you should be able to reconnect to your Raspberry Pi.
+1. Wait a couple minutes and you should be able to reconnect to your Raspberry Pi.
 
 
 ### Perform Hardware Tests
