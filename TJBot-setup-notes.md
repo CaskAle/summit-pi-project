@@ -3,26 +3,28 @@
 The instructions setting up and using the Raspberry Pi as a TJBot are found in the [README.md](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md) file.  This file can be found in the "~/Desktop/tjbot/bootstrap" directory once the setup has completed.
 
 - Use ssh to connect to your device and run the following command to begin the TJBot setup:  
-`curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`  
-This kicks off an install script that will ask several questions.  In most cases, you should just accept the defaults.  However, in a few cases, described below, you may want to deviate from the default:
 
-  - **Hostname**:  
+   `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`  
+
+   This kicks off an install script that will ask several questions.  In most cases, you should just accept the defaults.  However, in a few cases, described below, you may want to deviate from the default:
+
+  **Hostname:**  
   As previosly mentioned, due to the large number of Raspberry Pis that will be on your network, be sure you have a unique hostname for your device.
 
-  - **Quad 9 Nameservers**:  
+  **Quad 9 Nameservers:**  
   The Quad 9 nameservers (9.9.9.9) are IBM owned and maintained nameservers that focus on security and privacy.  No harm in using them, your choice.
 
-  - **nodejs**:
+  **nodejs:**
   Answer **Y** when asked if you would like to install a newer version of Node.js.  The Node.js that is pre installed on the Raspberry Pi OS does not work properly with the latest tjbot libraries.
 
-  - **Install Location**:  
+  **Install Location:**  
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
-  - **LED / Sound Conflict**:  
-  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Raspberry Pi 4 LED Bug](#raspberry-pi-4-led-bug) section.
+  **LED / Sound Conflict:**  
+  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Speaker Not Working](#speaker-not-working) section.
 
-  - **Do not run the Hardware tests when asked**:  
-  Due to the LED/Speaker issue as well as a need to update the tjbot libraries will result in test failure.  There are instructions for running them in the [Perform Hardware Tests](#perform-hardware-tests) section once the TJBot libraries have been updated.
+  **Hardware Tests:**  
+  **Optional but recommended**.   If you choose not to run them now, there are instructions for running them later in the [Perform Hardware Tests](#perform-hardware-tests) section.
 
 ## TJBot Special Notes
 
@@ -53,13 +55,14 @@ Is is important to be running the lates version Node.js (currently 15.x).  If yo
 
 There are a few test programs in the `~/Desktop/tjbot/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/tree/master/tests) file located in `~/Desktop/tjbot/tests`.
 
-### Wiring up the LED
+### LED Wiring
 
 Be sure to use the larger RGB LED that came packaged in a separate pack of 5.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
-**Correct wiring of the LED is critical.  If you wire it incorrectly, you will fry it.**  If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+**Correct wiring of the LED is critical.  If you wire it backwards, you will burn it out.**  
+If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
