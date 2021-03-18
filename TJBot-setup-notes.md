@@ -50,34 +50,33 @@ Is is important to be running the lates version Node.js (currently 15.x).  If yo
 
 1. Wait a couple minutes and you should be able to reconnect to your Raspberry Pi.
 
-
 ### Perform Hardware Tests
 
 There are a few test programs in the `~/Desktop/tjbot/tests` directory.  These can be very helpful in ensuring that your led and speaker are properly set up.  As you will be making changes to code, you may run into problems where the application does not work properly.  These tests can eliminate the hardware as the source of the problem and save a lot of time.  The instructions for using the tests are found in the [README.md](https://github.com/ibmtjbot/tjbot/tree/master/tests) file located in `~/Desktop/tjbot/tests`.
 
 ### LED Wiring
 
-Be sure to use the larger RGB LED that came packaged in a separate pack of 5.
+Be sure to use the larger "NeoPixel" RGB LED that came packaged in a separate pack of 5.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
-**Correct wiring of the LED is critical.  If you wire it backwards, you will burn it out.**
-
-If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+**Correct wiring of the LED is critical.  If you wire it incorrectly, you will burn it out.  
+  
+If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.**  
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-#### Speaker Not Working
+### Speaker Not Working
 
 Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
 > **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
 
-#### Determine Correct Audio Device Numbers
+### Determine Correct Audio Device Numbers
 
-#### Disable LED and Servo in Conversation Recipe
+### Disable LED and Servo in Conversation Recipe
 
-#### Speaker Volume
+### Speaker Volume
 
 If you are having trouble with the volume level of the speaker, you can adjust to from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
