@@ -75,7 +75,51 @@ Due to a known issue with the Raspberry Pi involving a conflict between the LED 
 
 ### Determine Correct Audio Device Numbers
 
+#### Speaker
+
+`aplay -l`
+
+``` text
+**** List of PLAYBACK Hardware Devices ****
+card 0: b1 [bcm2835 HDMI 1], device 0: bcm2835 HDMI 1 [bcm2835 HDMI 1]
+  Subdevices: 4/4
+  Subdevice #0: subdevice #0
+  Subdevice #1: subdevice #1
+  Subdevice #2: subdevice #2
+  Subdevice #3: subdevice #3
+card 1: Headphones [bcm2835 Headphones], device 0: bcm2835 Headphones [bcm2835 Headphones]
+  Subdevices: 4/4
+  Subdevice #0: subdevice #0
+  Subdevice #1: subdevice #1
+  Subdevice #2: subdevice #2
+  Subdevice #3: subdevice #3
+```
+
+#### Microphone
+
+`arecord -l`
+
+``` text
+**** List of CAPTURE Hardware Devices ****
+card 2: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+```
+
 ### Disable LED and Servo in Conversation Recipe
+
+In order to avoid conflicts with the speaker, edit the conversation.js file.  Near the top, find the line (~ line 22) that looks like this:
+
+``` javascript
+const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER, TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO];
+```
+Delete the `TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO` entries from this line so that it ends up looking like this:
+
+``` javascript
+const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER];
+```
+
+Save and exit the file editor.  This will keep the LED and servo from being initialized.
 
 ### Speaker Volume
 
