@@ -97,7 +97,7 @@ Save and exit the file editor.  This will keep the LED and servo from being init
 
 If you are having trouble with the volume level of the speaker, you can adjust it from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
 
-### Determine Correct Audio Device Numbers
+### No sound detected or output
 
 Recent Raspberry Pi OS updates have changed the order of the sound device initialization.  Previously, the 3.5mm headphone jack was always considered to be card 0.  Now, if an HDMI device is detected (such as a display with a speaker), it will take the card 0 spot and the 3.5mm jack will become card 1.  This, in turn, effects the microphone as well, making it go from card 1 to card 2.  This creates a problem with the TJ Bot recipes as they are written to assuming that the 3.5 jack is card 0 and the microphone is card 1 by default.  
 
@@ -139,3 +139,39 @@ card 2: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
   Subdevices: 1/1
   Subdevice #0: subdevice #0
 ```
+
+#### Modify the recipe defaults
+
+In each recipe or test that uses the microphone or speaker, you will need to paste the following code:
+
+``` javascript
+tjConfig.listen = {
+   microphoneDeviceId: 'plughw:2,0',
+   backgroundAudioSuppression: 0.4,
+   inactivityTimeout: -1,
+   language: TJBot.LANGUAGES.LISTEN.ENGLISH_US
+};
+
+tjConfig.speak = {
+   speakerDeviceId: 'plughw:1,0',
+   language: TJBot.LANGUAGES.SPEAK.ENGLISH_US,
+   voice: undefined
+};
+```
+
+just above the line that reads:  
+for tests:
+
+``` javascript
+tjbot.initialize([TJBot.HARDWARE.SPEAKER]);
+```
+
+for recipes:
+
+``` javascript
+//instantiate our TJBot!
+```
+
+In each case, you should replace the first number in the `'plughw:1,0'` with the appropriate sound card number. Use the microphone card number for the `tjConfig.Listen` and use the speaker card number for the `tjConfig.Speak`.  
+
+You should then be able to proceed with the test/recipe as normal.
