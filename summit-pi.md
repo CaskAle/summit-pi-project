@@ -22,6 +22,7 @@ Your kit should include an SD card that is already loaded with software called [
      ```bash
      sudo apt update
      sudo apt dist-upgrade -y
+     sudo reboot
      ```
 
   2. take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
@@ -36,44 +37,45 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
 
 1. Start by using the official guide for [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).
 
-2. When selecting the operating system, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
+1. When selecting the operating system, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
 
    > Note: The **Raspberry Pi OS Full (32-bit)** is hidden in a sub-menu entitled **Raspberry PI OS (other)**.
 
-3. **STOP once you have completed the Set up your SD card** step and, at that point, complete the following steps.
+1. Before pressing the `Write` button to create your image, bring up the hidden advanced configuration settings by pressing `Ctrl + Shift + X`.  In these settings, set the following items:
 
-4. Read the short article on [Setting up a Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md).  Don't actually perform any of the step in the article.  Instead, return here and complete the steps below to enable a WiFi connection and ssh on your Pi.
+   - **Set hostname**.  Choose a hostname that will be unique on your network
+   - **Enable SSH**. Select the password authentication method and set a password for the pi user.  You will need this later so don't forget it.
+   - **Configure wifi**.  Set the SSID and Password for your local network.
+   - **Wifi Country**.  Set to **US**`.
+   - **Set Locale**.  Our timezone settings will be under **America**.  THe keyboard should be **us**
+   - **Skip first-run wizard**
+   - **Eject media when finished**.  This does not physically eject the card from the slot.  Rather, it tells the operating system to close all open files so that the card can be safely removed.
+   - **Save**
+1. Now you can press the `Write` button and your operating system will be written to the MicroSD card.
 
-   - Unplug the SD card from your laptop, wait a few seconds and then plug it back in.  This will make the laptop rediscover the new file systems that have been created on the card.
-
-   - Editing files on the SD card from a Mac can be done by opening the "terminal" application on the Mac.  From there, you should find the SD card's boot directory at `/Volumes/boot`.  Use `cd /Volumes/boot` to get there.  If there does not seem to be a boot directory, repeat step 3 above.
-
-   - To enable ssh on the Pi, use the touch command to create an empty file called "ssh" in the /Volumes/boot directory:  
-   `touch /Volumes/boot/ssh`
-
-   - To connect your Pi to the network via WiFi, use the [nano](#nano) text editor to create a wpa_supplicant.conf file in the /Volumes/boot directory.  
-   `nano /Volumes/boot/wpa_supplicant.conf`  
-   Guidance on the contents of this file can be found in the [Configuring WiFi](#configuring-wifi) section of this document.
-
-      > Note: as an alternative to WiFi, you can use the ethernet adapter on the Pi to connect.  Just use an ethernet cable to connect the Pi to an open port on your router.
-
-   - **Be sure to eject the SD card properly.  DO NOT just remove it**.  Otherwise, due to caching, there is a good chance your modifications will not be saved on the SD card.  You can do this from either the desktop or from within the Finder application.
-
-5. Now you can continue with the standard Raspberry Pi setup where you left off at [Connect your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).  
-
-   > Note: The instructions in the setup guide stop being relevant to a headless install once you complete this step.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will connect to the device over the network, from your laptop, via a terminal and the ssh program.
+   > Note: The instructions in the setup guide stop being relevant to a headless install once you get to the point where they mention Raspberry Pi OS desktop appearing.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will be connecting to the device over the network, from your laptop, via a terminal and the ssh program.
   
-6. Ensure that the WiFi network you wish to connect to is ready before powering up the Raspberry Pi.  ie. Make sure that you have turned on your phone's hotspot if that is how you are connecting.
+1. The first boot will take a few minutes as there is some initial setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it.  To verify that the device has connected to the network, use the ping command from a terminal on your laptop.  
+`ping -c 5 <hostname>.local`
+   > Replace `<hostname>` with the hostname you chose during image creation.
 
-7. Power up your Pi by plugging the power cord into the USB-C power port on the side of the device.  The first boot will take a few minutes as there is some setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it.  If you are using your phone's hotspot, you should see the number of devices that are connected to the hotspot change.  To verify that the device is connected to the network, use the ping command.  
-`ping -c 5 raspberrypi.local`
+1. Once your device has connected to the network, you can connect to it, from a laptop, that is also connected to the same network.  From a terminal on your laptop and enter:  
+`ssh pi@<hostname>.local`
+   > Replace `<hostname>` with the hostname you chose during image creation.  The default userid on the the Raspberry Pi is **pi**.  You will be prompted for pi's password.  Use the password you chose during image creation.
 
-8. If your device is the only Raspberry Pi on the network (for instance, if you are [using your phone as a hotspot](#mobile-phone-hotspot)) you should now be able to connect to it, via ssh, over the network from a laptop, that is also connected to the same network.  Open a terminal on your laptop and enter:  
-`ssh pi@raspberrypi.local`
+1. Once you are connected, you should do a software update first thing.  To do this, enter the following commands in your terminal:
 
-9. There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  At the very minimum, you should set a [unique hostname](#set-a-unique-hostname), your timezone, your locale, your keyboard, and change the password.  Be sure to run the tool as root with the **sudo** command: `sudo raspi-config`.  When you exit the config program, if you made changes, you will be asked if you wish to reboot.  Be sure to say yes so that all your changes are activated.
+     ```bash
+     sudo apt update
+     sudo apt dist-upgrade -y
+     sudo reboot
+     ```
 
-10. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.  You can connect to your Pi using ssh with its new hostname using the command: `ssh pi@<my-pi-hostname>.local`.  This will also connect you using the default userid on the the Pi (pi) so you will also need to enter the password for the pi user.  The default password for the user pi is `raspberry`.  If you did not create a unique password when you set up the device, you can do so at any time by using the `passwd` command from a terminal.
+   > After the reboot, you will need to reconnect to the device by using the ssh command again.
+
+1. At this point, you should have a configured Raspberry Pi that you can use for the assigned exercices.
+
+There is a Raspberry Pi configuration tool called [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).  Many elements of the device can be configured via this tool.  Be sure to run the tool as root with the **sudo** command: `sudo raspi-config`.  When you exit the config program, if you made changes, you will be asked if you wish to reboot.  Be sure to say yes so that all your changes are activated.
 
 ## TJBot Setup Notes
 
