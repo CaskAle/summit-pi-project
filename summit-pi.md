@@ -15,21 +15,30 @@ Your kit should include an SD card that is already loaded with software called [
 
 - During the NOOBS initial setup, be sure to choose the **Raspbian Full** image.  Otherwise, you may not get all the necessary software installed.
 
-- Once you are up and running, take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
+- Once you are up and running, there are couple things you should do right away.
+
+  1. Do a software update.  The quickest way to do this is to open a terminal and enter the following commands:
+
+     ```bash
+     sudo apt update
+     sudo apt dist-upgrade -y
+     ```
+
+  2. take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
 
 - If you will always have access to the keyboard, mouse, and display, it may be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
 
-Jump ahead now to the section entitled [TJBot Setup Notes](#TJBot-Setup-Notes)
+You can now proceed to the section entitled [TJBot Setup Notes](#TJBot-Setup-Notes)
 
 ## But I don't have all that stuff (the harder way :confused:)
 
 If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
 
-1. Start by using the same [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) instructions as listed above.
+1. Start by using the official guide for [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).
 
-2. When creating your image, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
+2. When selecting the operating system, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
 
-   > Note: you will need to select the **Raspberry PI OS (other)** first, and then you will see the option to select the Full version.
+   > Note: The **Raspberry Pi OS Full (32-bit)** is hidden in a sub-menu entitled **Raspberry PI OS (other)**.
 
 3. **STOP once you have completed the Set up your SD card** step and, at that point, complete the following steps.
 
