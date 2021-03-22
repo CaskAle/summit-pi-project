@@ -96,71 +96,6 @@ iot
 
 ---
 
-## Set a unique hostname
-
-The default host name for the device is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the Pi remotely.  Due to the large number of Pis that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
-
-There are several ways to set the hostname but the first option is probably the easiest.
-
-- `sudo hostnamectl set-hostname new-hostname`
-
-- `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
-
-- `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
-
-## Mobile Phone Hotspot
-
-Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
-
-- **Configure a hotspot on your mobile**  
-The configuration of your phone's hospot, will vary by manufacturer but generally it will be in the **__Network__** section of the phone's setup menus.  Here, you will give the hotspot a name and a password.  Then, turn it on.
-
-- Connect your laptop to the hotspot just like you would any other WiFi network.
-
-- Follow the [Configuring WiFi](#configuring-wifi) instructions below to create an initial configuration in a headless environment or to add a network to an existing configuration.
-
-## Configuring WiFi
-
-The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
-
-- If you place a wpa_supplicant file into the /boot directory of the Raspberry Pi /boot directory before booting it up the first time, that file will be automatically moved to the /etc/wpa_supplicant directory at first boot.  It will then attempt to connect to the WiFi networks specified in the file, in the order they appear.
-
-- It is very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot) as the first network in this file.  This way, you always have a fallback method of connecting to the device.
-
-- In the sample below, replace the bracketted text and the brackets <>, (leaving the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
-
-- Here is a sample wpa_supplicant.conf file that can copied, modified, and used.
-
-```bash
-# /etc/wpa_supplicant/wpa_supplicant.conf
-
-# Multiple networks can be added to this file and they will be tried, in order.
-# Replace the <text> (leave the quotes in place) with the SSID and password of your
-# WiFi networks.  List your mobile hotspot first and it will be connected to if it is
-# turned on.  Otherwise, it will just skip to the next entry, and so on.
-
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=US
-
-network={
-  ssid="<Mobile hotpot name>"
-  psk="<Mobile hotpot password>"
-}
-
-network={
-  ssid="<Home WiFi name>"
-  psk="<Home WiFi password>"
-}
-
-network={
-  ssid="<Another WiFi name>"
-  psk="<Another Wifi password>"
-}
-```
-
----
-
 ## Useful Linux Commands
 
 The vast majority of your work on the device will be done via a terminal.  While this list is far from complete, here are some useful commands that will help you to navigate the linux.
@@ -234,7 +169,70 @@ You should occasionally check for and apply system updates to ensure that bugs a
 
 ---
 
-## IBM Network Considerations
+## Other Stuff
+
+### Setting a unique hostname
+
+The default host name for a Raspberry Pi is **raspberrypi**. If your device is the only one on a network with that name, then all is good.  However, setting a unique hostname will be extremely useful in allowing you to connect to the device remotely.  Due to the large number of devices that may be connecting to the network, you will need a way to distinguish yours from all the others.  Decide on a unique hostname for your device.  One way to ensure this is to add your IBM employee number to the end of whatever name you choose. (for example: **tjbot-xxxxxx**).  
+
+There are several ways to set the hostname but the first option is probably the easiest.
+
+- `sudo hostnamectl set-hostname new-hostname`
+
+- `sudo raspi-config`.  This tool lets you perform several other configuration changes at the same time, such as enabling ssh, change password, etc.
+
+- `sudo nano /etc/hostname`. Editing this file will allow you to directly enter a new hostname into the file it is stored in.  You should reboot after editing in this way for the change to take effect with `sudo reboot`.
+
+### Configuring WiFi
+
+The WiFi configuration is stored in a file called wpa_supplicant located in the /etc/wpa_supplicant directory.  Multiple networks can be added to this file and they will be tried, in the order they appear.
+
+- It can be very useful to configure a [mobile phone hotspot](#mobile-phone-hotspot) as the first network in this file.  This way, you always have a fallback method of connecting to the device.
+
+- In the sample below, replace `<WiFi SSID>` and `<WiFi Password>`, (leave the quotation marks in place) with the SSID and password of your WiFi networks. **Remove any extra network definitions if they are not needed**.
+
+- Here is a sample wpa_supplicant.conf file that can copied, modified, and used.
+
+```bash
+# /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Multiple networks can be added to this file and they will be tried, in order.
+# Replace the <text> (leave the quotes in place) with the SSID and password of your
+# WiFi networks.  List your mobile hotspot first and it will be connected to if it is
+# turned on.  Otherwise, it will just skip to the next entry, and so on.
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+  ssid="<WiFi SSID>"
+  psk="<WiFi Password>"
+}
+
+network={
+  ssid="<WiFi SSID>"
+  psk="<WiFi Password>"
+}
+
+network={
+  ssid="<WiFi SSID>"
+  psk="<WiFi Password>"
+}
+```
+
+### Mobile Phone Hotspot
+
+Using your mobile phone as a hotspot is a great way to get your Pi onto a network so that you can connect to it.  If both your laptop and the Raspberry Pi connect to the hotspot, you will be able to access the device via a terminal on your laptop.
+
+- **Configure a hotspot on your mobile**  
+The configuration of your phone's hospot, will vary by manufacturer but generally it will be in the **__Network__** section of the phone's setup menus.  Here, you will give the hotspot a name and a password.  Then, turn it on.
+
+- Connect your laptop to the hotspot just like you would any other WiFi network.
+
+- Follow the [Configuring WiFi](#configuring-wifi) instructions to add a network to an existing configuration.
+
+### IBM Network Considerations
 
 - You will likely not be able to connect the Raspberry Pi as a headless device (no keyboard or display) to the IBM WiFi network.  This is due to the fact that there is no way to enter the appropriate user and password info required to connect.
 
