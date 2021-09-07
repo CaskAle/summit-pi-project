@@ -5,35 +5,9 @@ If you are not yet comfortable with linux and the command line, you may want to 
 
 You will very likely wish to keep these instructions active for reference while hopping to the various links referenced within.  To do this, use your browser's tab function and open multiple tabs.  Simply right click on the links and select **Open in new tab**.
 
-## Set up the Raspberry Pi (the easy way :relieved:)
+## Installing the Raspberry Pi Operating System
 
-Your kit should include an SD card that is already loaded with software called [NOOBS](https://github.com/raspberrypi/noobs/blob/master/README.md) (**N**ew **O**ut **O**f **B**ox **S**oftware).  NOOBS is a tool that gets your device up and running quickly.  If you do not have these items, you will need to skip ahead to: [But I don't have all that stuff :confused:](#but-i-don't-have-that-stuff-:frowning_face:-(the-harder-way)).
-
-- If you have access to a USB keyboard, USB mouse, and HDMI display, using NOOBS is the quickest way to get going.  Simply procede to [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) and follow the instructions there.
-
-- Because you already have NOOBS, you can ignore the step that refers to setting up your SD card.
-
-- During the NOOBS initial setup, be sure to choose the **Raspbian Full** image.  Otherwise, you may not get all the necessary software installed.
-
-- Once you are up and running, there are couple things you should do right away.
-
-  1. Do a software update.  The quickest way to do this is to open a terminal and enter the following commands:
-
-     ```bash
-     sudo apt update
-     sudo apt dist-upgrade -y
-     sudo reboot
-     ```
-
-  2. take the time to [configure your Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using/9).  At the very minimum, you should [set a unique hostname](#set-a-unique-hostname), enable [ssh](#ssh), change the password, and set up WiFi to a [mobile phone hotspot](#mobile-phone-hotspot) so that you can connect to the device remotely from your laptop.
-
-- If you will always have access to the keyboard, mouse, and display, it may be useful to go through the [Using your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-using) guide.
-
-You can now proceed to the section entitled [TJBot Setup Notes](#TJBot-Setup-Notes)
-
-## But I don't have all that stuff (the harder way :confused:)
-
-If you do not have access to a keyboard, mouse, and display, all is not lost.  It is still possible to setup your Raspberry Pi as a headless device.  Using this method, NOOBS is no longer an option.  Instead, you need to write a new image of the Raspbian OS directly to the SD card.  Once the OS has been written, you will need to make a few more changes to the SD card image before putting it into the device and booting.
+You will be setting up your Raspberry Pi as a headless device.  You will be writing a new image of the Raspberry Pi Operating System (OS) directly to the devices SD card from your laptop.  Once the OS has been written, you will then put the SD card into the Raspberry Pi and boot it.
 
 1. Start by using the official guide for [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).
 
@@ -53,7 +27,7 @@ If you do not have access to a keyboard, mouse, and display, all is not lost.  I
    - **Save**
 1. Now you can press the `Write` button and your operating system will be written to the MicroSD card.
 
-   > Note: The instructions in the setup guide stop being relevant to a headless install once you get to the point where they mention Raspberry Pi OS desktop appearing.  In a headless environment, you will not see the Raspbian Desktop.  Instead, you will be connecting to the device over the network, from your laptop, via a terminal and the ssh program.
+   > Note: The instructions in the setup guide stop being relevant to a headless install once you get to the point where they mention Raspberry Pi OS desktop appearing.  In a headless environment, you will not see the Raspberry Pi OS Desktop.  Instead, you will be connecting to the device over the network, from your laptop, via a terminal and the ssh program.
   
 1. The first boot will take a few minutes as there is some initial setup that will be done.  Give it about 5 minutes on the first boot before trying to connect to it.  To verify that the device has connected to the network, use the ping command from a terminal on your laptop.  
 `ping -c 5 <hostname>.local`
