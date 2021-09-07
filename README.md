@@ -7,7 +7,7 @@ You will very likely wish to keep these instructions active for reference while 
 
 ## Installing the Raspberry Pi Operating System
 
-You will be setting up your Raspberry Pi as a headless device.  You will be writing a new image of the Raspberry Pi Operating System (OS) directly to the devices SD card from your laptop.  Once the OS has been written, you will then put the SD card into the Raspberry Pi and boot it.
+You will be setting up your Raspberry Pi as a headless device.  You will be writing a new image of the Raspberry Pi Operating System (OS) directly on to the device's MicroSD card from your laptop.  To do this, you will need an adapter that allows you to use a USB port to write data to a MicroSD card.  Once the OS has been written to the card, you will then place it into the Raspberry Pi and boot from it.
 
 1. Start by using the official guide for [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).
 
