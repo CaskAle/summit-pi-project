@@ -66,14 +66,7 @@ If you look closely or feel along the base of the LED you will find that one sid
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
-## Speaker/Microphone Issues
-
-### Garbled Sound
-
-Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
-> **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
-
-### Disable LED and Servo in Conversation Recipe
+## Disable LED and Servo in Conversation Recipe
 
 Because we do not provide you a servo in the kit and also to avoid conflicts with the built in Raspberry Pi speaker jack, you will want to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
 
@@ -89,7 +82,12 @@ const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER];
 
 >Note: Of course, if you happen to have your own servo or are using a USB speaker there is no need to delete the respective hardware entry `TJBot.HARDWARE.SERVO` or `TJBot.HARDWARE.LED_NEOPIXEL` entry.  Just be sure to not leave any extra commas hanging around.
 
-Save and exit the file editor.  This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.
+Save and exit the file editor.  This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.## Speaker/Microphone Issues
+
+### Garbled Sound
+
+Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
+> **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
 
 ## Speaker and Microphone issues
 
