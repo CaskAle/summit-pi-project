@@ -158,18 +158,20 @@ tjConfig.speak = {
 ```
 
 just above the line that reads:  
-for tests:
+for the test scipts:
 
 ``` javascript
-tjbot.initialize([TJBot.HARDWARE.SPEAKER]);
+tjbot.initialize...
 ```
 
-for recipes:
+for the recipes:
 
 ``` javascript
 //instantiate our TJBot!
 ```
 
-In each case, you should replace the first number in the `'plughw:1,0'` with the appropriate sound card number. Use the microphone card number for the `tjConfig.Listen` and use the speaker card number for the `tjConfig.Speak`.  
+In each case, you should replace the first number in the `'plughw:1,0'` with the appropriate sound card number. 
+- Use the microphone card number (`arecord -l`) for the `tjConfig.Listen`
+- Use the speaker card number (`aplay -l`) for the `tjConfig.Speak`.  
 
-You should then be able to proceed with the test/recipe as normal.
+You should then be able to proceed with the tests/recipes as normal.
