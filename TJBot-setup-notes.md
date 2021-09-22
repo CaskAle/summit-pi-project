@@ -21,7 +21,7 @@ The instructions setting up and using the Raspberry Pi as a TJBot are found in t
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
   **LED / Sound Conflict:**  
-  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Speaker Not Working](#speaker-not-working) section.
+  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Garbled Sound](#garbled-sound) section.
 
   **Hardware Tests:**  
   **Optional but recommended**.   If you choose not to run them now, there are instructions for running them later in the [Perform Hardware Tests](#perform-hardware-tests) section.
@@ -68,14 +68,14 @@ If you look closely or feel along the base of the LED you will find that one sid
 
 ## Speaker/Microphone Issues
 
-### Garbled sound
+### Garbled Sound
 
 Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
 > **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
 
 ### Disable LED and Servo in Conversation Recipe
 
-In order to avoid conflicts with the build in Raspberry Pi speaker jack, edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
+Because we do not provide you a servo in the kit you are using and also to avoid conflicts with the built in Raspberry Pi speaker jack, you will want to avoid initializing these devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
 
 ``` javascript
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER, TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO];
@@ -87,15 +87,11 @@ Delete the `TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO` entries from this
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER];
 ```
 
->Note: If you happen to have a servo, there is no need to delete the `TJBot.HARDWARE.SERVO` entry.  If you are using a USB Sound card, there is no need to delete the `TJBot.HARDWARE.LED_NEOPIXEL` entry.
+>Note: Of course, if you happen to have your own servo or USB speaker there is no need to delete the respective hardware entry `TJBot.HARDWARE.SERVO` or `TJBot.HARDWARE.LED_NEOPIXEL` entry.  Just be sure to not leave any extra commas hanging around.
 
 Save and exit the file editor.  This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.
 
-### Speaker Volume Too Low
-
-If you are having trouble with the volume level of the speaker, you can adjust it from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
-
-## No sound from speaker of microphone
+## Speaker and Microphone issues
 
 Recent Raspberry Pi OS updates have changed the order of the sound device initialization.  Previously, the 3.5mm headphone jack was always considered to be card 0.  Now, if an HDMI device is detected (such as a display with a speaker), it will take the card 0 spot and the 3.5mm jack will become card 1.  This, in turn, effects the microphone as well, making it go from card 1 to card 2.  This creates a problem with the TJ Bot recipes as they are written to assuming that the 3.5 jack is card 0 and the microphone is card 1 by default.  
 
@@ -175,3 +171,7 @@ In each case, you should replace the first number in the `'plughw:1,0'` with the
 - Use the speaker card number (`aplay -l`) for the `tjConfig.Speak`.  
 
 You should then be able to proceed with the tests/recipes as normal.
+
+### Speaker Volume
+
+If you are having trouble with the volume level of the speaker, you can adjust it from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
