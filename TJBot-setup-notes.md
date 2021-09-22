@@ -75,7 +75,7 @@ Due to a known issue with the Raspberry Pi involving a conflict between the LED 
 
 ### Disable LED and Servo in Conversation Recipe
 
-Because we do not provide you a servo in the kit you are using and also to avoid conflicts with the built in Raspberry Pi speaker jack, you will want to avoid initializing these devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
+Because we do not provide you a servo in the kit and also to avoid conflicts with the built in Raspberry Pi speaker jack, you will want to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
 
 ``` javascript
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER, TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO];
@@ -87,7 +87,7 @@ Delete the `TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO` entries from this
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER];
 ```
 
->Note: Of course, if you happen to have your own servo or USB speaker there is no need to delete the respective hardware entry `TJBot.HARDWARE.SERVO` or `TJBot.HARDWARE.LED_NEOPIXEL` entry.  Just be sure to not leave any extra commas hanging around.
+>Note: Of course, if you happen to have your own servo or are using a USB speaker there is no need to delete the respective hardware entry `TJBot.HARDWARE.SERVO` or `TJBot.HARDWARE.LED_NEOPIXEL` entry.  Just be sure to not leave any extra commas hanging around.
 
 Save and exit the file editor.  This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.
 
