@@ -21,7 +21,7 @@ The instructions setting up and using the Raspberry Pi as a TJBot are found in t
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
   **LED / Sound Conflict:**  
-  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the built-in speaker port do not work well together.  The resolution of this issue is documented in the [Garbled Sound](#garbled-sound) section.
+  You should answer **No** to this question.  The LED and the built-in speaker port do not work well together.  The resolution to this issue is documented in the [Garbled Sound](#garbled-sound) section.
 
   **Hardware Tests:**  
   **Optional but recommended**.   If you choose not to run them now, there are instructions for running them later in the [Perform Hardware Tests](#perform-hardware-tests) section.
@@ -68,7 +68,7 @@ If you look closely or feel along the base of the LED you will find that one sid
 
 ## Disable LED and Servo in Conversation Recipe
 
-Because we do not provide you a servo in the kit and also to avoid conflicts with the built in Raspberry Pi speaker port, you will want to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
+Because we do not provide you a servo in the kit and also to avoid conflicts with the built-in speaker port, you need to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
 
 ``` javascript
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER, TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO];
