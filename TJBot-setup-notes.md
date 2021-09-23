@@ -76,11 +76,13 @@ You kit includes a card (below) that maps out the pins on the Raspberry Pi.  The
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
-As you can see from the above image, it can be rather tedious to find the correct pin on the Raspberry Pi.  That's where the CanaKit GPIO to Breadboard Interface Board (40 Pin T-Shaped) device comes in to play.  This handy device maps the 40 pins of the Raspberry Pi to the receiver holes of a testing breadboard.  As an added bonus, the pins will have appropriate labels to help with pin mapping.
+As you can see from the above image, it can be rather tedious to find the correct pin on the Raspberry Pi.  That's where the CanaKit GPIO to Breadboard Interface Board (40 Pin T-Shaped) device comes in to play.  This handy device maps the 40 pins of the Raspberry Pi to the receiver holes of a testing breadboard.  As an added bonus, the pins will have appropriate labels to help with pin mapping.  Attach it to you Raspberry Pi as shown in the image below.
 
-![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard2.jpg "Breadboard")
+![Breadboard Installation](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard2.jpg "Breadboard Installation")
 
-![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
+Once you have the breadboard attached to the Raspberry Pi, the image below demonstrates the wiring for the LED.  If you are not familiar with the use of a breadboard, take a look at the following short [Breadboard Tutorial](https://www.elecrow.com/blog/how-to-use-a-breadboard-for-beginners.html).
+
+![Breadboard Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard Wiring")
 
 ## Disable LED and Servo in Conversation Recipe
 
