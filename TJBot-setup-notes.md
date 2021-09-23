@@ -58,21 +58,27 @@ Be sure to use the larger "NeoPixel" LED that came packaged in a separate pack o
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
-Raspberry Pi to LED Pin mapping:
+### Raspberry Pi to LED Pin mapping:
 
-| LED Pin | Pin type | Raspberry Pi Pin | Physical Pin |
-|---|---|---|---|
-| 1 | Data In | GPIO 18 | 12 |
-| 2 | Power | +3.3v | 1 |
-| 3 | Ground | Gnd | 6 |
-| 4 | Data Out | unused | unused |
+| LED Pin | Pin type | Raspberry Pi Pin | Pin Label |
+|---|----------|--------|---------|
+| 1 | Data In  | 12     | GPIO 18 |
+| 2 | Power    | 1      | +3.3v   |
+| 3 | Ground   | 6      | GND     |
+| 4 | Data Out | unused |         |
 
->Note: The Neopixel LED has a flat notch on one side.  Use this to properly orient the LED and figure out which pin is which.  If you look closely or feel along the plastic base of the LED you will find that one edge of the round base has been shaved flat.  The flat edge of the LED is at pin 4 of the LED.  
-**Correct wiring of the LED is critical.  If you wire it incorrectly, you will destroy it.**
+>**Note:** The Neopixel LED has a flat notch on one side.  Use this to properly orient the LED and figure out which pin is which.  If you look closely or feel along the plastic base of the LED you will find that one edge of the round base has been shaved flat.  **The flat edge of the LED is at pin 4 of the LED**.  
+Correct wiring of the LED is critical.  If you wire it incorrectly, you will destroy it.
+
+You kit includes a card (below) that maps out the pins on the Raspberry Pi.  There are 40 pins and they each perform unique function.  The pins have physical numbers (1 - 40) as well as a label.  For reference, you will see on the card that GPIO 18 is on physical pin 12.
 
 ![Pin Map](https://github.com/CaskAle/summit-pi-project/raw/master/images/pin-map.jpg "Pin Map")
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
+
+As you can see from the above image, it can be rather tedious to find the correct pin on the Raspberry Pi.  That's where the CanaKit GPIO to Breadboard Interface Board (40 Pin T-Shaped) device comes in to play.  This handy device maps the 40 pins of the Raspberry Pi to the receiver holes of a testing breadboard.  As an added bonus, the pins will have appropriate labels to help with pin mapping.
+
+![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard2.jpg "Breadboard")
 
 ![Breadboard](https://github.com/CaskAle/summit-pi-project/raw/master/images/breadboard.jpg "Breadboard")
 
