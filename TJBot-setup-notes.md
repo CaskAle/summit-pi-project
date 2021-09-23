@@ -67,8 +67,8 @@ Be sure to use the larger "NeoPixel" LED that came packaged in a separate pack o
 | 3 | Ground   | 6      | GND     |
 | 4 | Data Out | unused |         |
 
->**Note:** The Neopixel LED has a flat notch on one side.  Use this to properly orient the LED and figure out which pin is which.  If you look closely or feel along the plastic base of the LED you will find that one edge of the round base has been shaved flat.  **The flat edge of the LED is at pin 4 of the LED**.  
-Correct wiring of the LED is critical.  If you wire it incorrectly, you will destroy it.
+>**Note:** The Neopixel LED has a flat notch on one side.  Use this to properly orient the LED and figure out which pin is which.  If you look closely or feel along the plastic base of the LED you will find that one edge of the round base has been shaved flat.  The flat edge of the LED is at pin 4 of the LED.  Pin 1 is at the opposite end.  
+**Correct wiring of the LED is critical.  If it is wired incorrectly, it will burn out and be ruined.**
 
 Your kit includes a card (below) that maps out the pins on the Raspberry Pi.  There are 40 pins and they each perform unique function.  The pins have physical numbers (1 - 40) as well as a label.  For reference, you will see on the card that GPIO 18 is on physical pin 12.
 
