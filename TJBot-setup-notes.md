@@ -54,13 +54,23 @@ There are a few test programs in the `~/Desktop/tjbot/tests` directory.  These c
 
 ## Proper LED Wiring
 
-Be sure to use the larger "NeoPixel" RGB LED that came packaged in a separate pack of 5.
+Be sure to use the larger "NeoPixel" LED that came packaged in a separate pack of five.  For reference, you will see it in the image below as compared to the smaller RGB LED in the kit.
 
 ![RGB LEDs](https://github.com/CaskAle/summit-pi-project/raw/master/images/rgb-led.jpg "RGB LEDs")
 
->**Note: Correct wiring of the LED is critical.  If you wire it incorrectly, you will burn it out.**  
+Raspberry Pi to LED Pin mapping:
 
-If you look closely or feel along the base of the LED you will find that one side of the base has been flattened.  When wiring, be sure to have this flat spot facing to the right and you should be all good.  
+| LED Pin | Pin type | Raspberry Pi Pin | Physical Pin |
+|---|---|---|---|
+| 1 | Data In | GPIO 18 | 12 |
+| 2 | Power | +3.3v | 1 |
+| 3 | Ground | Gnd | 6 |
+| 4 | Data Out | unused | unused |
+
+>Note: The Neopixel LED has a flat notch on one side.  Use this to properly orient the LED and figure out which pin is which.  If you look closely or feel along the plastic base of the LED you will find that one edge of the round base has been shaved flat.  The flat edge of the LED is at pin 4 of the LED.  
+**Correct wiring of the LED is critical.  If you wire it incorrectly, you will destroy it.**
+
+![Pin Map](https://github.com/CaskAle/summit-pi-project/raw/master/images/pin-map.jpg "Pin Map")
 
 ![LED Wiring](https://github.com/CaskAle/summit-pi-project/raw/master/images/wiring.png "LED Wiring")
 
