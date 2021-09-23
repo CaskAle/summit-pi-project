@@ -21,7 +21,7 @@ The instructions setting up and using the Raspberry Pi as a TJBot are found in t
   All of the instructions and scripts for the TJBot recipes expect to find the TJBot code in the default location.  It is definitely best to accept the default here.
 
   **LED / Sound Conflict:**  
-  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the 3.5mm speaker jack do not work well together.  The resolution of this issue is documented in the [Garbled Sound](#garbled-sound) section.
+  You should answer **No** to this question.  Keep in mind that you will need to run the LED based recipes and the speaker based recipes separately.  The LED and the built-in speaker port do not work well together.  The resolution of this issue is documented in the [Garbled Sound](#garbled-sound) section.
 
   **Hardware Tests:**  
   **Optional but recommended**.   If you choose not to run them now, there are instructions for running them later in the [Perform Hardware Tests](#perform-hardware-tests) section.
@@ -68,7 +68,7 @@ If you look closely or feel along the base of the LED you will find that one sid
 
 ## Disable LED and Servo in Conversation Recipe
 
-Because we do not provide you a servo in the kit and also to avoid conflicts with the built in Raspberry Pi speaker jack, you will want to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
+Because we do not provide you a servo in the kit and also to avoid conflicts with the built in Raspberry Pi speaker port, you will want to avoid initializing the LED and servo devices when working on the conversation recipe.  To do this,  edit the `tjbot/recipes/conversation/conversation.js` file.  Near the top of that file, find the line (~ line 22) that looks like this:
 
 ``` javascript
 const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER, TJBot.HARDWARE.LED_NEOPIXEL, TJBot.HARDWARE.SERVO];
@@ -82,22 +82,24 @@ const hardware = [TJBot.HARDWARE.MICROPHONE, TJBot.HARDWARE.SPEAKER];
 
 >Note: Of course, if you happen to have your own servo or are using a USB speaker there is no need to delete the respective hardware entry `TJBot.HARDWARE.SERVO` or `TJBot.HARDWARE.LED_NEOPIXEL` entry.  Just be sure to not leave any extra commas hanging around.
 
-Save and exit the file editor.  This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.## Speaker/Microphone Issues
+This will keep the LED and servo from being initialized.  If, due to running other recipes, the LED has already been initialized, you will likely need to reboot your Raspberry Pi before the speaker will work properly.## Speaker/Microphone Issues
 
 ### Garbled Sound
 
-Due to a known issue with the Raspberry Pi involving a conflict between the LED and the 3.5mm speaker output, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
-> **Note:** This problem only exists when using the 3.5mm jack for sound.  If you happen to have a USB or Bluetooth speaker, you can use that without issue.
+Due to a known issue with the Raspberry Pi involving a conflict between the LED and the built-in speaker port, once you initialize the LED, the speaker will no longer produce audible output.  Unfortunately, the only solution to this is to reboot the device (`sudo reboot`).  Once the reboot has finished, the speaker should work properly.  It will continue to work fine until the next time the LED is initialized.
+> **Note:** This problem only exists when using the built-in speaker port for sound output.  If you use a USB attached speaker, this conflict will not occur.
 
 ## Speaker and Microphone issues
 
-Recent Raspberry Pi OS updates have changed the order of the sound device initialization.  Previously, the 3.5mm headphone jack was always considered to be card 0.  Now, if an HDMI device is detected (such as a display with a speaker), it will take the card 0 spot and the 3.5mm jack will become card 1.  This, in turn, effects the microphone as well, making it go from card 1 to card 2.  This creates a problem with the TJ Bot recipes as they are written to assuming that the 3.5 jack is card 0 and the microphone is card 1 by default.  
+There are two primary reasons that you might run into issues with your audio input and output:
 
-The need to know which sound card devices to use is also an issue if you want to use a USB sound card to prevent conflicts with the LED.  
+1. You are using speaker plugged into a USB port rather than the built-in speaker port.
 
-Once you have determined the correct sound card to use, it is a simple exercise to override the default sound devices that are specified in the recipes/tests.
+1. Recent Raspberry Pi OS updates have changed the order of the audio device initialization.  Previously, the built-in speaker port was always initialized as card 0.  Now, other audio devices can take the card 0 spot and the built-in speaker port will be assigned another number.  This, also, effects the microphone device as well, causing it to initialize as something other than card 1.
 
-### Determine the speaker card
+Both of these issues creates a problem with the TJ Bot recipes as they are written assuming that the built-in speaker port is card 0 and the microphone is card 1 by default.  Fortunately, it is quite easy to override these defaults in the TJ Bot recipes and tests.  
+
+### Finding the speaker card number
 
 1. In a terminal, execute the command: `aplay -l`
 1. Look at the output for the apporpriate card.  In the example below, you will see that the "Headphones" are card 1.
@@ -119,7 +121,7 @@ card 1: Headphones [bcm2835 Headphones], device 0: bcm2835 Headphones [bcm2835 H
   Subdevice #3: subdevice #3
 ```
 
-### Determine the microphone card
+### Finding the microphone card number
 
 1. In a terminal, execute the command: `arecord -l`
 1. Look at the output for the apporpriate card.  In the example below, you will see that the "USB PNP Sound Device" is card 2.
@@ -152,19 +154,21 @@ tjConfig.speak = {
 ```
 
 just above the line that reads:  
-for the test scipts:
 
 ``` javascript
 tjbot.initialize...
 ```
 
-for the recipes:
+for the test scipts and just above the line that reads:
 
 ``` javascript
 //instantiate our TJBot!
 ```
 
-In each case, you should replace the first number in the `'plughw:1,0'` with the appropriate sound card number. 
+for the recipes.
+
+In each case, you should replace the first number in the `'plughw:1,0'` with the appropriate sound card number.
+
 - Use the microphone card number (`arecord -l`) for the `tjConfig.Listen`
 - Use the speaker card number (`aplay -l`) for the `tjConfig.Speak`.  
 
@@ -172,4 +176,4 @@ You should then be able to proceed with the tests/recipes as normal.
 
 ### Speaker Volume
 
-If you are having trouble with the volume level of the speaker, you can adjust it from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise the volume to 100%.  Press `esc` when you are done and it will save and exit.  Now you should be able to hear the output at a much better volume.
+If you are having trouble hearing the output from the speaker, you can adjust the volume from the command line with the command: `alsamixer`.  Use the arrow keys on your keyboard to raise or lower the volume.  Press `esc` when you are done and it will save your changes.
