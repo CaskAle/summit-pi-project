@@ -28,7 +28,7 @@ The instructions setting up and using the Raspberry Pi as a TJBot are found in t
 
 ## Update your Raspberry Pi OS and Node.js
 
-Is is important to be running the lates version Node.js (currently 15.x).  If you did not update your Node.js during the TJBot install process, you will need to do it now.  Included here will also be instructions for first performing an update of the Raspberry Pi OS.
+Is is important to be running the lates version Node.js (currently 16.x).  If you did not update your Node.js during the TJBot install process, you will need to do it now.  Included here will also be instructions for first performing an update of the Raspberry Pi OS.
 
 1. Perform a full system update by executing the following two commands:
 
@@ -38,9 +38,9 @@ Is is important to be running the lates version Node.js (currently 15.x).  If yo
 
 1. Ensure that the latest Node.js is installed by executing the following 2 commands:
 
-   `curl -sL https://deb.nodesource.com/setup_15.x | sudo bash -`  
+   `curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -`  
 
-   `apt-get install -y nodejs`
+   `sudo apt-get install -y nodejs`
 
 1. Reboot the Raspbery Pi:
 
