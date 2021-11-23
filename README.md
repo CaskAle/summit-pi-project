@@ -11,9 +11,7 @@ You will be setting up your Raspberry Pi as a headless device.  You will be writ
 
 1. Start by using the official guide for [Setting up your Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up).
 
-1. When selecting the operating system, be sure to choose the **Raspberry Pi OS Full (32-bit)** image.  Otherwise, you may not get all the necessary software installed.
-
-   > Note: The **Raspberry Pi OS Full (32-bit)** is hidden in a sub-menu entitled **Raspberry PI OS (other)**.
+1. When selecting the operating system, be sure to choose the **Raspberry Pi OS (32-bit)** image.
 
 1. Before pressing the `Write` button to create your image, bring up the hidden advanced configuration settings by pressing `Ctrl + Shift + X`.  In these settings, set the following items:
 
